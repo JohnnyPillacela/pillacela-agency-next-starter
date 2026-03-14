@@ -14,6 +14,8 @@ export const en = {
 
     services: {
         title: "Our Services",
+        title2: "What we offer",
+        subtitle2: "We offer a wide range of services to help you grow your business.",
         items: [
             "Web Design & Development",
             "SEO & Performance Optimization",
@@ -21,6 +23,7 @@ export const en = {
             "Landing Pages",
             "E-commerce Solutions",
         ],
+        cta: "Book a Consultation",
     },
 
     contact: {
