@@ -13,8 +13,8 @@ export default function ServicesPage({ dict }: Props) {
         <>
             <Section>
                 <Container>
-                    <h1>{dict.title2}</h1>
-                    <p>{dict.subtitle2}</p>
+                    <h1>{dict.heroTitle}</h1>
+                    <p>{dict.description}</p>
                     <p>{dict.cta}</p>
                 </Container>
             </Section>

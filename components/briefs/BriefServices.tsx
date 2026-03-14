@@ -1,5 +1,6 @@
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
+import { SectionHeading } from "../shared/section-heading"
 
 type Props = {
     dict: any
@@ -9,7 +10,7 @@ export default function BriefServices({ dict }: Props) {
     return (
         <Section id="services">
             <Container>
-                <h2 className="text-3xl font-bold mb-8">{dict.title}</h2>
+                <SectionHeading title={dict.title} description={dict.description} align="center" />
                 <ul className="grid gap-4 md:grid-cols-2">
                     {dict.items.map((item: string, index: number) => (
                         <li key={index}>{item}</li>

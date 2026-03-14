@@ -14,8 +14,8 @@ export const en = {
 
     services: {
         title: "Our Services",
-        title2: "What we offer",
-        subtitle2: "We offer a wide range of services to help you grow your business.",
+        heroTitle: "What we offer",
+        description: "We offer a wide range of services to help you grow your business.",
         items: [
             "Web Design & Development",
             "SEO & Performance Optimization",

@@ -14,8 +14,8 @@ export const es = {
 
     services: {
         title: "Nuestros Servicios",
-        title2: "Qué ofrecemos",
-        subtitle2: "Ofrecemos una amplia gama de servicios para ayudarte a crecer tu negocio.",
+        heroTitle: "Qué ofrecemos",
+        description: "Ofrecemos una amplia gama de servicios para ayudarte a crecer tu negocio.",
         items: [
             "Diseño y Desarrollo Web",
             "SEO y Optimización de Rendimiento",
