@@ -2,7 +2,7 @@ type Props = {
     dict: any
 }
 // This is for people who pay for a website with multiple pages. 
-export default function Services({ dict }: Props) {
+export default function ServicesList({ dict }: Props) {
     return (
         <section id="services" className="py-24">
             <div className="container mx-auto">
