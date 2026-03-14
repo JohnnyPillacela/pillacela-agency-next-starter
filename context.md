@@ -12,7 +12,9 @@
 - [Business Use Case](#business-use-case)
 - [Technical Requirements](#technical-requirements)
 - [Design Principles](#design-principles)
-- [Recommended Structure](#recommended-structure)
+- [Current Structure](#current-structure)
+- [Current Patterns](#current-patterns)
+- [Changes Needed](#changes-needed)
 
 ---
 
@@ -134,93 +136,107 @@ The architecture should **clearly separate responsibilities** between:
 | Layer | Purpose |
 |-------|---------|
 | `components/ui` | Reusable design system primitives / shadcn-based components |
-| `components/layout` | Layout and structural components |
-| `components/sections` | Reusable marketing sections |
-| `content` | Site copy, service data, testimonials, and structured content |
-| `config` | Branding, business info, site metadata, navigation |
-| `lib` | Helper functions, utilities, SEO helpers |
+| `components/layout` | Layout and structural components (container, section, navbar, footer) |
+| `components/briefs` | Compact sections for single-page sites (e.g. BriefServices, BriefContact) |
+| `components/pages` | Page-level compositions that assemble briefs and sections |
+| `components/sections` | Full marketing sections for multi-page sites (nested by feature) |
+| `components/shared` | Shared UI helpers (e.g. section-heading) |
+| `content/locales` | i18n dictionaries per locale (en.ts, es.ts) |
+| `config` | Branding, business info, site metadata, locale-aware navigation |
+| `lib` | Helper functions, utilities, getDictionary, SEO helpers |
 
 > The template should work like a **system of building blocks**, not a one-off project.
 
 ---
 
-## Recommended Structure
+## Current Structure
+
+The following reflects the **actual** project structure as implemented.
 
 ```
 pillacela-agency-next-starter/
 ├── app/
 │   ├── (marketing)/
-│   │   ├── page.tsx
-│   │   ├── about/
-│   │   │   └── page.tsx
-│   │   ├── services/
-│   │   │   └── page.tsx
-│   │   ├── contact/
-│   │   │   └── page.tsx
-│   │   └── layout.tsx
-│   ├── api/
-│   │   └── contact/
-│   │       └── route.ts
-│   ├── favicon.ico
+│   │   ├── page.tsx              # Home (en)
+│   │   └── services/
+│   │       └── page.tsx
+│   ├── es/(marketing)/
+│   │   ├── page.tsx              # Home (es)
+│   │   └── servicios/
+│   │       └── page.tsx
 │   ├── globals.css
-│   ├── layout.tsx
-│   ├── not-found.tsx
-│   ├── robots.ts
-│   └── sitemap.ts
+│   └── layout.tsx               # Root layout + Navbar
 ├── components/
+│   ├── briefs/                  # Single-page compact sections
+│   │   ├── BriefContact.tsx
+│   │   └── BriefServices.tsx
 │   ├── layout/
 │   │   ├── container.tsx
-│   │   ├── section.tsx
-│   │   ├── site-footer.tsx
-│   │   └── site-header.tsx
-│   ├── sections/
-│   │   ├── about-section.tsx
-│   │   ├── booking-section.tsx
-│   │   ├── contact-section.tsx
-│   │   ├── cta-section.tsx
-│   │   ├── faq-section.tsx
-│   │   ├── hero-section.tsx
-│   │   ├── pricing-section.tsx
-│   │   ├── services-section.tsx
-│   │   └── testimonials-section.tsx
+│   │   ├── navbar.tsx           # Locale-aware header
+│   │   └── section.tsx
+│   ├── pages/                   # Page compositions
+│   │   ├── HomePage.tsx
+│   │   └── ServicesPage.tsx
+│   ├── sections/                # Multi-page full sections
+│   │   └── services/
+│   │       └── services-list.tsx
 │   ├── shared/
 │   │   └── section-heading.tsx
-│   └── ui/
-│       └── ...
+│   └── ui/                      # shadcn primitives
 ├── config/
-│   ├── navigation.ts
-│   ├── site.ts
-│   └── theme.ts
-├── content/
-│   ├── faqs.ts
-│   ├── services.ts
-│   ├── testimonials.ts
-│   └── pages/
-│       ├── about.ts
-│       ├── contact.ts
-│       ├── home.ts
-│       └── services.ts
-├── lib/
-│   ├── metadata.ts
-│   ├── schema.ts
-│   ├── utils.ts
-│   └── validations.ts
-├── public/
-│   ├── favicon/
-│   └── images/
-│       ├── brand/
-│       ├── sections/
-│       └── services/
-├── types/
-│   ├── navigation.ts
-│   ├── sections.ts
+│   ├── navigation.ts            # Locale-keyed: { en: [...], es: [...] }
 │   └── site.ts
-├── .env.example
-├── README.md
-├── components.json
-├── next.config.ts
-├── package.json
-├── postcss.config.js
-├── tailwind.config.ts
-└── tsconfig.json
+├── content/
+│   └── locales/
+│       ├── en.ts
+│       └── es.ts
+├── lib/
+│   ├── getDictionary.ts
+│   └── utils.ts
+└── ... (next.config, tailwind, postcss, etc.)
 ```
+
+---
+
+## Current Patterns
+
+### i18n and Locale Routing
+
+- **Routes:** `/` and `/services` for English; `/es` and `/es/servicios` for Spanish.
+- **Content:** `content/locales/en.ts` and `content/locales/es.ts` export dictionaries.
+- **Resolution:** `lib/getDictionary.ts` provides `getDictionary(locale)` where `locale` is `"en" | "es"`.
+- **Navbar:** Uses `usePathname()` to infer locale (`pathname.startsWith("/es")`).
+
+### Briefs vs Sections
+
+Two tiers for different client budgets:
+
+| Tier | Folder | Purpose |
+|------|--------|---------|
+| **Briefs** | `components/briefs/` | Compact sections for single-page sites. Minimal layout, scroll anchors (e.g. `#services`, `#contact`). |
+| **Sections** | `components/sections/` | Fuller sections for multi-page sites. Nested by feature (e.g. `services/services-list.tsx`). |
+
+### Pages as Compositions
+
+- `components/pages/HomePage.tsx` and `ServicesPage.tsx` receive a `dict` prop and compose briefs/sections.
+- Route pages (e.g. `app/(marketing)/page.tsx`) call `getDictionary(locale)` and pass the result down.
+
+### Config Navigation
+
+- `config/navigation.ts` exports `navigation` as an object keyed by locale: `navigation.en`, `navigation.es`.
+- Each value is an array of `{ label, href }`. Supports hash links for single-page and path links for multi-page.
+
+---
+
+## Planned Additions / Changes Needed
+
+Items to align with the full architecture:
+
+| Priority | Item | Notes |
+|----------|------|-------|
+| 1 | **Site footer** | Add `components/layout/site-footer.tsx` (or `footer.tsx`). Use `navigation[locale]`, `siteConfig.contact`, `siteConfig.social`. |
+| 2 | **Nav links for multi-page** | Add `/services` to en nav and `/es/servicios` to es nav when offering multi-page; currently nav uses hash links. |
+| 3 | **Metadata from site config** | Update `app/layout.tsx` to use `siteConfig.name` and `siteConfig.description` instead of placeholder text. |
+| 4 | **Contact page** | Add `app/(marketing)/contact/page.tsx` and `app/es/(marketing)/contacto/page.tsx`; add to nav. |
+| 5 | **Dictionary typing** | Replace `dict: any` with a proper type derived from locale shape for type safety. |
+| 6 | **Optional later** | `lib/metadata.ts` for `generateMetadata`, `app/not-found.tsx`, `robots.ts`, `sitemap.ts`, `app/api/contact/route.ts`, `.env.example`. |
