@@ -5,13 +5,13 @@ export type NavItem = {
 
 export const navigation = {
     en: [
-        { label: "Home", href: "/#hero" },
+        { label: "Home", href: "/" },
         { label: "Services", href: "/#services" },
         { label: "Contact", href: "/#contact" },
     ],
 
     es: [
-        { label: "Inicio", href: "/es#hero" },
+        { label: "Inicio", href: "/es" },
         { label: "Servicios", href: "/es#services" },
         { label: "Contacto", href: "/es#contact" },
     ],
