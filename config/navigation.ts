@@ -3,15 +3,16 @@ export type NavItem = {
     href: string
 }
 
-export const mainNav: NavItem[] = [
-    { label: "Home", href: "/" },
-    { label: "Services", href: "#services" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
-]
+export const navigation = {
+    en: [
+        { label: "Home", href: "/#hero" },
+        { label: "Services", href: "/#services" },
+        { label: "Contact", href: "/#contact" },
+    ],
 
-export const footerNav: NavItem[] = [
-    { label: "Home", href: "/" },
-    { label: "Services", href: "#services" },
-    { label: "Contact", href: "#contact" },
-]
+    es: [
+        { label: "Inicio", href: "/es#hero" },
+        { label: "Servicios", href: "/es#services" },
+        { label: "Contacto", href: "/es#contact" },
+    ],
+}
