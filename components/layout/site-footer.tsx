@@ -3,14 +3,15 @@
 import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { navigation } from "@/config/navigation"
-import { siteConfig } from "@/config/site"
+import { shared } from "@/content/shared"
+import { navigation } from "@/content/navigation"
+import { getFooter } from "@/lib/getLayoutDict"
 import { Container } from "./container"
 
 const socialConfig = [
-    { href: siteConfig.social.instagram, label: "Instagram" },
-    { href: siteConfig.social.facebook, label: "Facebook" },
-    { href: siteConfig.social.linkedin, label: "LinkedIn" },
+    { href: shared.social.instagram, label: "Instagram" },
+    { href: shared.social.facebook, label: "Facebook" },
+    { href: shared.social.linkedin, label: "LinkedIn" },
 ].filter((l) => l.href)
 
 const linkStyles =
@@ -41,7 +42,8 @@ export function SiteFooter() {
     const pathname = usePathname()
     const locale = pathname?.startsWith("/es") ? "es" : "en"
     const navItems = navigation[locale]
-    const { contact } = siteConfig
+    const footer = getFooter(locale)
+    const { contact } = shared
 
     return (
         <footer className="mt-auto w-full border-t border-border bg-muted/30">
@@ -52,10 +54,10 @@ export function SiteFooter() {
                             href={locale === "es" ? "/es" : "/"}
                             className="font-semibold text-foreground transition-colors hover:text-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:rounded-sm"
                         >
-                            {siteConfig.name}
+                            {shared.siteName}
                         </Link>
                         <p className="max-w-xs text-sm text-muted-foreground">
-                            {siteConfig.description}
+                            {shared.siteDescription}
                         </p>
                         <SocialLinks />
                     </div>
@@ -63,7 +65,7 @@ export function SiteFooter() {
                     <div className="flex flex-col gap-6 sm:flex-row sm:gap-12">
                         <nav className="space-y-2">
                             <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                                {locale === "es" ? "Enlaces" : "Links"}
+                                {footer.linksLabel}
                             </span>
                             <ul className="flex flex-col gap-2">
                                 {navItems.map((item) => (
@@ -81,7 +83,7 @@ export function SiteFooter() {
 
                         <div className="space-y-2">
                             <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                                {locale === "es" ? "Contacto" : "Contact"}
+                                {footer.contactLabel}
                             </span>
                             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
                                 <li>
@@ -114,10 +116,8 @@ export function SiteFooter() {
 
                 <div className="border-t border-border py-4">
                     <p className="text-center text-xs text-muted-foreground">
-                        © {new Date().getFullYear()} {siteConfig.name}.{" "}
-                        {locale === "es"
-                            ? "Todos los derechos reservados."
-                            : "All rights reserved."}
+                        © {new Date().getFullYear()} {shared.siteName}.{" "}
+                        {footer.rightsReserved}
                     </p>
                 </div>
             </Container>
