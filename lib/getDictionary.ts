@@ -1,13 +1,9 @@
-import { en } from "@/content/locales/en"
-import { es } from "@/content/locales/es"
+import { dictionaries } from "@/content/dictionaries"
+import type { Dictionary, Locale } from "@/types/dictionary"
 
-export type Locale = "en" | "es"
+export type { Locale } from "@/types/dictionary"
 
-export const dictionaries = {
-    en,
-    es,
-}
-
-export function getDictionary(locale: Locale) {
+/** Full dictionary — use for pages that need hero, about, services, contact, etc. */
+export function getDictionary(locale: Locale): Dictionary {
     return dictionaries[locale]
 }
