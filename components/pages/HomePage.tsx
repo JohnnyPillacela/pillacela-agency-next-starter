@@ -1,7 +1,8 @@
 // /components/pages/HomePage.tsx
 
+import BriefAbout from "@/components/briefs/BriefAbout"
+import BriefContact from "@/components/briefs/BriefContact"
 import BriefServices from "@/components/briefs/BriefServices"
-import BriefContact from "../briefs/BriefContact"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
 
@@ -17,6 +18,7 @@ export default function HomePage({ dict }: Props) {
                     <h1>{dict.hero.title}</h1>
                 </Container>
             </Section>
+            <BriefAbout dict={dict.about} />
             <BriefServices dict={dict.services} />
             <BriefContact dict={dict.contact} />
         </>
