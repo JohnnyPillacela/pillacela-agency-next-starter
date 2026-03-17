@@ -1,12 +1,9 @@
 import HomePage from "@/components/pages/HomePage"
-import { getDictionary } from "@/lib/getDictionary"
 
 export default function Page() {
-    const dict = getDictionary("en")
-
     return (
         <main>
-            <HomePage dict={dict} />
+            <HomePage locale="en" />
         </main>
-    );
+    )
 }

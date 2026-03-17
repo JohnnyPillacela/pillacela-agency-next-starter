@@ -4,8 +4,7 @@ import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { shared } from "@/content/shared"
-import { navigation } from "@/content/navigation"
-import { getFooter } from "@/lib/getLayoutDict"
+import { getFooterDict, getNavigationDict } from "@/lib/dictionaries"
 import { Container } from "./container"
 
 const socialConfig = [
@@ -41,8 +40,8 @@ function SocialLinks() {
 export function SiteFooter() {
     const pathname = usePathname()
     const locale = pathname?.startsWith("/es") ? "es" : "en"
-    const navItems = navigation[locale]
-    const footer = getFooter(locale)
+    const navItems = getNavigationDict(locale)
+    const footer = getFooterDict(locale)
     const { contact } = shared
 
     return (

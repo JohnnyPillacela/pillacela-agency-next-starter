@@ -3,13 +3,13 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { shared } from "@/content/shared"
-import { navigation } from "@/content/navigation"
+import { getNavigationDict } from "@/lib/dictionaries"
 import { Container } from "./container"
 
 export function Navbar() {
     const pathname = usePathname()
     const locale = pathname?.startsWith("/es") ? "es" : "en"
-    const navItems = navigation[locale]
+    const navItems = getNavigationDict(locale)
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">

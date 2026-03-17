@@ -4,19 +4,30 @@ import BriefAbout from "@/components/briefs/BriefAbout"
 import BriefContact from "@/components/briefs/BriefContact"
 import BriefHero from "@/components/briefs/BriefHero"
 import BriefServices from "@/components/briefs/BriefServices"
-import type { Dictionary } from "@/types/dictionary"
+import {
+    getAboutDict,
+    getContactDict,
+    getHeroDict,
+    getServicesDict,
+} from "@/lib/dictionaries"
+import type { Locale } from "@/types/locale"
 
 type Props = {
-    dict: Dictionary
+    locale: Locale
 }
 
-export default function HomePage({ dict }: Props) {
+export default function HomePage({ locale }: Props) {
+    const hero = getHeroDict(locale)
+    const about = getAboutDict(locale)
+    const services = getServicesDict(locale)
+    const contact = getContactDict(locale)
+
     return (
         <>
-            <BriefHero dict={dict.hero} />
-            <BriefAbout dict={dict.about} />
-            <BriefServices dict={dict.services} />
-            <BriefContact dict={dict.contact} />
+            <BriefHero dict={hero} />
+            <BriefAbout dict={about} />
+            <BriefServices dict={services} />
+            <BriefContact dict={contact} />
         </>
     )
 }

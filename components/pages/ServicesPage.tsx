@@ -3,23 +3,27 @@
 import ServicesList from "../sections/services/services-list"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
-import type { ServicesDict } from "@/types/dictionary"
+import { getCommonDict, getServicesDict } from "@/lib/dictionaries"
+import type { Locale } from "@/types/locale"
 
 type Props = {
-    dict: ServicesDict
+    locale: Locale
 }
 
-export default function ServicesPage({ dict }: Props) {
+export default function ServicesPage({ locale }: Props) {
+    const services = getServicesDict(locale)
+    const common = getCommonDict(locale)
+
     return (
         <>
             <Section>
                 <Container>
-                    <h1>{dict.heroTitle}</h1>
-                    <p>{dict.description}</p>
-                    <p>{dict.cta}</p>
+                    <h1>{services.heroTitle}</h1>
+                    <p>{services.description}</p>
+                    <p>{services.cta ?? common.learnMore}</p>
                 </Container>
             </Section>
-            <ServicesList dict={dict} />
+            <ServicesList dict={services} />
         </>
     )
 }
