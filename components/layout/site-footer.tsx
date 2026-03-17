@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { shared } from "@/content/shared"
 import { getFooterDict, getNavigationDict } from "@/lib/dictionaries"
 import { Container } from "./container"
+import { LanguageSwitcher } from "./language-switcher"
 
 const socialConfig = [
     { href: shared.social.instagram, label: "Instagram" },
@@ -113,11 +114,12 @@ export function SiteFooter() {
                     </div>
                 </div>
 
-                <div className="border-t border-border py-4">
-                    <p className="text-center text-xs text-muted-foreground">
+                <div className="flex flex-col items-center justify-between gap-3 border-t border-border py-4 sm:flex-row">
+                    <p className="text-xs text-muted-foreground">
                         © {new Date().getFullYear()} {shared.siteName}.{" "}
                         {footer.rightsReserved}
                     </p>
+                    <LanguageSwitcher />
                 </div>
             </Container>
         </footer>
