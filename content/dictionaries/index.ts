@@ -1,0 +1,34 @@
+import type { Dictionary } from "@/types/dictionary"
+import type { Locale } from "@/types/dictionary"
+import { heroDict } from "./hero"
+import { aboutDict } from "./about"
+import { servicesDict } from "./services"
+import { contactDict } from "./contact"
+import { footerDict } from "./footer"
+import { formDict } from "./form"
+import { commonDict } from "./common"
+import { errorsDict } from "./errors"
+
+/** Composed dictionaries per locale. Single source for all translated copy. */
+export const dictionaries: Record<Locale, Dictionary> = {
+    en: {
+        hero: heroDict.en,
+        about: aboutDict.en,
+        services: servicesDict.en,
+        contact: contactDict.en,
+        footer: footerDict.en,
+        form: formDict.en,
+        common: commonDict.en,
+        errors: errorsDict.en,
+    },
+    es: {
+        hero: heroDict.es,
+        about: aboutDict.es,
+        services: servicesDict.es,
+        contact: contactDict.es,
+        footer: footerDict.es,
+        form: formDict.es,
+        common: commonDict.es,
+        errors: errorsDict.es,
+    },
+}
