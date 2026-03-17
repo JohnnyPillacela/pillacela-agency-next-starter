@@ -2,7 +2,7 @@ import HomePage from "@/components/pages/HomePage"
 import { getHreflang } from "@/lib/seo/getHreflang"
 
 export async function generateMetadata() {
-    return getHreflang("/")
+    return getHreflang("/", "en")
 }
 
 export default function Page() {
