@@ -1,3 +1,5 @@
+// content/navigation.ts
+
 import type { Locale } from "@/types/locale"
 
 export type NavItem = {
