@@ -1,0 +1,40 @@
+---
+description: Dictionary and i18n architecture — types, modular sections, shared config, navigation
+globs: content/**/*.ts, types/dictionary.ts, lib/getDictionary.ts, lib/getLayoutDict.ts
+alwaysApply: false
+---
+
+# Dictionary Architecture
+
+## Structure
+
+- **`types/dictionary.ts`** — All dictionary types (`HeroDict`, `ServicesDict`, `Dictionary`, `Locale`)
+- **`content/shared.ts`** — Non-translatable config: `siteName`, `siteDescription`, `contact`, `social`, `url`
+- **`content/navigation.ts`** — Single source of truth for nav: label + href together, keyed by locale
+- **`content/dictionaries/`** — Modular section files (`hero.ts`, `about.ts`, `services.ts`, etc.); each exports `{ en, es }`
+- **`content/dictionaries/index.ts`** — Composes all sections into `dictionaries` record
+
+## Usage
+
+```typescript
+// Navigation (Navbar, Footer) — labels and hrefs in one place
+import { navigation } from "@/content/navigation"
+const navItems = navigation[locale]
+
+// Footer labels only
+import { getFooter } from "@/lib/getLayoutDict"
+const footer = getFooter(locale)
+
+// Full dictionary — pages that need hero, about, services, contact, etc.
+import { getDictionary } from "@/lib/getDictionary"
+const dict = getDictionary(locale)
+```
+
+## Rules
+
+1. **Navigation** — Always use `content/navigation.ts`. Never split labels and hrefs.
+2. **Layout (Navbar/Footer)** — Use `navigation[locale]` and `getFooter(locale)`. Do not import full dictionary.
+3. **Pages** — Use `getDictionary(locale)` for full dict. Add section getters in `lib/` only when actually needed.
+4. **Shared config** — Brand name, contact, social, URLs from `content/shared.ts`. Never hardcode these.
+5. **Add new sections** — Create `content/dictionaries/<section>.ts`, add type to `types/dictionary.ts`, wire in `index.ts`.
+6. **Optional CTAs** — Sections support optional `cta` and `ctaHref` fields.

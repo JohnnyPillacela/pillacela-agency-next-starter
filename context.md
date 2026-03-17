@@ -141,7 +141,8 @@ The architecture should **clearly separate responsibilities** between:
 | `components/pages` | Page-level compositions that assemble briefs and sections |
 | `components/sections` | Full marketing sections for multi-page sites (nested by feature) |
 | `components/shared` | Shared UI helpers (e.g. section-heading) |
-| `content/locales` | i18n dictionaries per locale (en.ts, es.ts) |
+| `content/dictionaries` | Modular i18n per section (hero, about, services, etc.); composed in `index.ts` |
+| `content/shared` | Non-translatable config (siteName, contact, social, url) |
 | `config` | Branding, business info, site metadata, locale-aware navigation |
 | `lib` | Helper functions, utilities, getDictionary, SEO helpers |
 
@@ -187,14 +188,19 @@ pillacela-agency-next-starter/
 │   │   └── section-heading.tsx
 │   └── ui/                      # shadcn primitives
 ├── config/
-│   ├── navigation.ts            # Locale-keyed: { en: [...], es: [...] }
-│   └── site.ts
+│   ├── routes.ts                # Route hrefs by locale (labels from dictionary)
+│   └── site.ts                  # Re-exports shared
 ├── content/
-│   └── locales/
-│       ├── en.ts
-│       └── es.ts
+│   ├── shared.ts                # Non-translatable: siteName, contact, social
+│   └── dictionaries/
+│       ├── index.ts             # Composes en/es dictionaries
+│       ├── hero.ts
+│       ├── about.ts
+│       ├── services.ts
+│       └── ... (navigation, footer, form, common, errors)
 ├── lib/
 │   ├── getDictionary.ts
+│   ├── buildNavigation.ts       # Routes + dict labels → nav items
 │   └── utils.ts
 └── ... (next.config, tailwind, postcss, etc.)
 ```
@@ -206,9 +212,10 @@ pillacela-agency-next-starter/
 ### i18n and Locale Routing
 
 - **Routes:** `/` and `/services` for English; `/es` and `/es/servicios` for Spanish.
-- **Content:** `content/locales/en.ts` and `content/locales/es.ts` export dictionaries.
-- **Resolution:** `lib/getDictionary.ts` provides `getDictionary(locale)` where `locale` is `"en" | "es"`.
-- **Navbar:** Uses `usePathname()` to infer locale (`pathname.startsWith("/es")`).
+- **Dictionary:** `content/dictionaries/` — modular section files composed in `index.ts`; types in `types/dictionary.ts`.
+- **Shared:** `content/shared.ts` — siteName, contact, social, url (non-translatable).
+- **Resolution:** `lib/getDictionary.ts` returns full `Dictionary`; `lib/buildNavigation.ts` builds nav from routes + dict.
+- **Navbar/Footer:** Use `getDictionary(locale)`, `buildNavigation(locale, dict.navigation)`, `shared`.
 
 ### Briefs vs Sections
 
@@ -224,10 +231,10 @@ Two tiers for different client budgets:
 - `components/pages/HomePage.tsx` and `ServicesPage.tsx` receive a `dict` prop and compose briefs/sections.
 - Route pages (e.g. `app/(marketing)/page.tsx`) call `getDictionary(locale)` and pass the result down.
 
-### Config Navigation
+### Config and Navigation
 
-- `config/navigation.ts` exports `navigation` as an object keyed by locale: `navigation.en`, `navigation.es`.
-- Each value is an array of `{ label, href }`. Supports hash links for single-page and path links for multi-page.
+- `config/routes.ts` — Route hrefs by locale; labels come from `dict.navigation`.
+- `lib/buildNavigation.ts` — Combines routes and dictionary labels into `{ label, href }[]`.
 
 ---
 
@@ -237,9 +244,9 @@ Items to align with the full architecture:
 
 | Priority | Item | Notes |
 |----------|------|-------|
-| 1 | ~~**Site footer**~~ | Done. `components/layout/site-footer.tsx` uses `navigation[locale]`, `siteConfig.contact`, `siteConfig.social`. |
+| 1 | ~~**Site footer**~~ | Done. `components/layout/site-footer.tsx` uses `getDictionary`, `buildNavigation`, `shared`, `dict.footer`. |
 | 2 | **Nav links for multi-page** | Add `/services` to en nav and `/es/servicios` to es nav when offering multi-page; currently nav uses hash links. |
 | 3 | **Metadata from site config** | Update `app/layout.tsx` to use `siteConfig.name` and `siteConfig.description` instead of placeholder text. |
 | 4 | **Contact page** | Add `app/(marketing)/contact/page.tsx` and `app/es/(marketing)/contacto/page.tsx`; add to nav. |
-| 5 | **Dictionary typing** | Replace `dict: any` with a proper type derived from locale shape for type safety. |
+| 5 | ~~**Dictionary typing**~~ | Done. Strongly typed in `types/dictionary.ts`; all components use typed props. |
 | 6 | **Optional later** | `lib/metadata.ts` for `generateMetadata`, `app/not-found.tsx`, `robots.ts`, `sitemap.ts`, `app/api/contact/route.ts`, `.env.example`. |
