@@ -1,8 +1,11 @@
+import Link from "next/link"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
+import { Button } from "@/components/ui/button"
+import type { HeroDict } from "@/types/dictionary"
 
 type Props = {
-    dict: any
+    dict: HeroDict
 }
 // Compact hero for single-page sites. Above-the-fold intro with title and subtitle.
 export default function BriefHero({ dict }: Props) {
@@ -16,6 +19,11 @@ export default function BriefHero({ dict }: Props) {
                     <p className="mt-6 text-lg text-muted-foreground">
                         {dict.subtitle}
                     </p>
+                    {dict.cta && (
+                        <Button asChild className="mt-8" size="lg">
+                            <Link href={dict.ctaHref ?? "#contact"}>{dict.cta}</Link>
+                        </Button>
+                    )}
                 </div>
             </Container>
         </Section>

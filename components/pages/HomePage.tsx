@@ -4,9 +4,10 @@ import BriefAbout from "@/components/briefs/BriefAbout"
 import BriefContact from "@/components/briefs/BriefContact"
 import BriefHero from "@/components/briefs/BriefHero"
 import BriefServices from "@/components/briefs/BriefServices"
+import type { Dictionary } from "@/types/dictionary"
 
 type Props = {
-    dict: any
+    dict: Dictionary
 }
 
 export default function HomePage({ dict }: Props) {

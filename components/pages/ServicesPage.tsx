@@ -3,9 +3,10 @@
 import ServicesList from "../sections/services/services-list"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
+import type { ServicesDict } from "@/types/dictionary"
 
 type Props = {
-    dict: any
+    dict: ServicesDict
 }
 
 export default function ServicesPage({ dict }: Props) {
