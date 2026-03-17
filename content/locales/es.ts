@@ -5,6 +5,12 @@ export const es = {
         contact: "Contacto",
     },
 
+    about: {
+        title: "Sobre Nosotros",
+        description:
+            "Somos una agencia pequeña enfocada en ayudar a las empresas a crecer en línea. Con años de experiencia en diseño web, desarrollo y estrategia digital, creamos soluciones rápidas, simples y hechas para durar.",
+    },
+
     hero: {
         title: "Pillacela Agency",
         subtitle:

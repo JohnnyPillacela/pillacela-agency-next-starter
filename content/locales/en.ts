@@ -5,6 +5,12 @@ export const en = {
         contact: "Contact",
     },
 
+    about: {
+        title: "About Us",
+        description:
+            "We are a small agency focused on helping businesses grow online. With years of experience in web design, development, and digital strategy, we craft solutions that are fast, simple, and built to last.",
+    },
+
     hero: {
         title: "Pillacela Agency",
         subtitle:
