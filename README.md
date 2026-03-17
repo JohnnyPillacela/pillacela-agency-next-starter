@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pillacela Agency Next Starter
 
-## Getting Started
+A Next.js starter template for building small business marketing websites. Used as the base for new client projects at Pillacela Agency.
 
-First, run the development server:
+---
+
+## Purpose
+
+This is a **starter repository**—not a shared library. Each new client project starts as a fresh clone. The template provides:
+
+- A clean, reusable architecture for agency sites
+- Built-in i18n (English / Spanish)
+- Brief-style sections (Hero, About, Services, Contact) for single-page sites
+- Config-driven branding and navigation
+- Fast setup so you can scaffold a new site in 30–60 minutes
+
+See [context.md](./context.md) for architecture details.
+
+---
+
+## New Client Setup
+
+When starting a new client website, you want an **independent project** with its own git history—no connection to this starter, so you never accidentally push or open PRs back to the template.
+
+**Workflow:**
+
+1. Clone the starter into a new folder:
+
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/pillacela-agency-next-starter.git my-client-website
+   cd my-client-website
+   ```
+
+2. Remove the existing git history (this detaches the project from the starter):
+
+   ```bash
+   rm -rf .git
+   ```
+
+3. Initialize a fresh repository for the client project:
+
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit from Pillacela Agency Next Starter"
+   ```
+
+4. Add your remote (e.g. the client’s repo or your agency’s copy):
+
+   ```bash
+   git remote add origin https://github.com/YOUR_ORG/client-repo.git
+   ```
+
+The new project now has its own history and is fully independent of the starter template.
+
+---
+
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
