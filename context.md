@@ -137,7 +137,7 @@ The architecture should **clearly separate responsibilities** between:
 |-------|---------|
 | `components/ui` | Reusable design system primitives / shadcn-based components |
 | `components/layout` | Layout and structural components (container, section, navbar, footer) |
-| `components/briefs` | Compact sections for single-page sites (e.g. BriefServices, BriefContact) |
+| `components/briefs` | Compact sections for single-page sites (e.g. BriefHero, BriefAbout, BriefServices, BriefContact) |
 | `components/pages` | Page-level compositions that assemble briefs and sections |
 | `components/sections` | Full marketing sections for multi-page sites (nested by feature) |
 | `components/shared` | Shared UI helpers (e.g. section-heading) |
@@ -168,12 +168,15 @@ pillacela-agency-next-starter/
 │   └── layout.tsx               # Root layout + Navbar
 ├── components/
 │   ├── briefs/                  # Single-page compact sections
+│   │   ├── BriefAbout.tsx
 │   │   ├── BriefContact.tsx
+│   │   ├── BriefHero.tsx
 │   │   └── BriefServices.tsx
 │   ├── layout/
 │   │   ├── container.tsx
 │   │   ├── navbar.tsx           # Locale-aware header
-│   │   └── section.tsx
+│   │   ├── section.tsx
+│   │   └── site-footer.tsx
 │   ├── pages/                   # Page compositions
 │   │   ├── HomePage.tsx
 │   │   └── ServicesPage.tsx
@@ -213,7 +216,7 @@ Two tiers for different client budgets:
 
 | Tier | Folder | Purpose |
 |------|--------|---------|
-| **Briefs** | `components/briefs/` | Compact sections for single-page sites. Minimal layout, scroll anchors (e.g. `#services`, `#contact`). |
+| **Briefs** | `components/briefs/` | Compact sections for single-page sites. Minimal layout, scroll anchors (e.g. `#hero`, `#about`, `#services`, `#contact`). |
 | **Sections** | `components/sections/` | Fuller sections for multi-page sites. Nested by feature (e.g. `services/services-list.tsx`). |
 
 ### Pages as Compositions
@@ -234,7 +237,7 @@ Items to align with the full architecture:
 
 | Priority | Item | Notes |
 |----------|------|-------|
-| 1 | **Site footer** | Add `components/layout/site-footer.tsx` (or `footer.tsx`). Use `navigation[locale]`, `siteConfig.contact`, `siteConfig.social`. |
+| 1 | ~~**Site footer**~~ | Done. `components/layout/site-footer.tsx` uses `navigation[locale]`, `siteConfig.contact`, `siteConfig.social`. |
 | 2 | **Nav links for multi-page** | Add `/services` to en nav and `/es/servicios` to es nav when offering multi-page; currently nav uses hash links. |
 | 3 | **Metadata from site config** | Update `app/layout.tsx` to use `siteConfig.name` and `siteConfig.description` instead of placeholder text. |
 | 4 | **Contact page** | Add `app/(marketing)/contact/page.tsx` and `app/es/(marketing)/contacto/page.tsx`; add to nav. |
