@@ -1,0 +1,7 @@
+export * from "./getAboutDict"
+export * from "./getCommonDict"
+export * from "./getContactDict"
+export * from "./getFooterDict"
+export * from "./getHeroDict"
+export * from "./getNavigationDict"
+export * from "./getServicesDict"

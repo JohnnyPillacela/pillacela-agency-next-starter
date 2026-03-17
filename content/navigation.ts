@@ -1,4 +1,4 @@
-import type { Locale } from "@/types/dictionary"
+import type { Locale } from "@/types/locale"
 
 export type NavItem = {
     label: string

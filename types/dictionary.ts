@@ -1,3 +1,5 @@
+import type { Locale } from "./locale"
+
 export type HeroDict = {
     title: string
     subtitle: string
@@ -53,7 +55,7 @@ export type ErrorsDict = {
     goBackHome: string
 }
 
-export type Locale = "en" | "es"
+export type { Locale }
 
 export type Dictionary = {
     hero: HeroDict

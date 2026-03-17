@@ -15,4 +15,4 @@ export const contactDict = {
         cta: "Enviar mensaje",
         ctaHref: "#contact",
     } satisfies ContactDict,
-}
+} as const

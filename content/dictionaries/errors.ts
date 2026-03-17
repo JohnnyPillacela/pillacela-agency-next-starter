@@ -9,4 +9,4 @@ export const errorsDict = {
         pageNotFound: "Página no encontrada",
         goBackHome: "Volver al inicio",
     } satisfies ErrorsDict,
-}
+} as const

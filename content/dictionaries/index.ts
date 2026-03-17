@@ -1,5 +1,5 @@
 import type { Dictionary } from "@/types/dictionary"
-import type { Locale } from "@/types/dictionary"
+import type { Locale } from "@/types/locale"
 import { heroDict } from "./hero"
 import { aboutDict } from "./about"
 import { servicesDict } from "./services"

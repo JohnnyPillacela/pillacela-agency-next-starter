@@ -29,4 +29,4 @@ export const servicesDict = {
         cta: "Reservar Consulta",
         ctaHref: "#contact",
     } satisfies ServicesDict,
-}
+} as const

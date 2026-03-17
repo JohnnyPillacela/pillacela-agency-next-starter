@@ -11,4 +11,4 @@ export const commonDict = {
         viewMore: "Ver más",
         backToTop: "Volver arriba",
     } satisfies CommonDict,
-}
+} as const

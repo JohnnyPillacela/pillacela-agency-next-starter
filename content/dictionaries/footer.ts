@@ -11,4 +11,4 @@ export const footerDict = {
         contactLabel: "Contacto",
         rightsReserved: "Todos los derechos reservados.",
     } satisfies FooterDict,
-}
+} as const

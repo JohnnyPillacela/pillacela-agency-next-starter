@@ -15,4 +15,4 @@ export const heroDict = {
         cta: "Reservar Consulta",
         ctaHref: "#contact",
     } satisfies HeroDict,
-}
+} as const

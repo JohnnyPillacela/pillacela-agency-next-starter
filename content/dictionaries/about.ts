@@ -15,4 +15,4 @@ export const aboutDict = {
         cta: "Conoce más sobre nosotros",
         ctaHref: "#services",
     } satisfies AboutDict,
-}
+} as const

@@ -15,4 +15,4 @@ export const formDict = {
         submit: "Enviar",
         sending: "Enviando…",
     } satisfies FormDict,
-}
+} as const
