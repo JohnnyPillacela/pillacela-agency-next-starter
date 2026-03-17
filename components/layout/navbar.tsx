@@ -2,8 +2,8 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { navigation } from "@/config/navigation"
-import { siteConfig } from "@/config/site"
+import { shared } from "@/content/shared"
+import { navigation } from "@/content/navigation"
 import { Container } from "./container"
 
 export function Navbar() {
@@ -16,7 +16,7 @@ export function Navbar() {
             <Container>
                 <nav className="flex h-14 items-center justify-between">
                     <Link href={locale === "es" ? "/es" : "/"} className="font-semibold text-foreground">
-                        {siteConfig.name}
+                        {shared.siteName}
                     </Link>
                     <div className="flex items-center gap-6">
                         {navItems.map((item) => (
