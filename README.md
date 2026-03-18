@@ -63,3 +63,48 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
+
+---
+
+## Customizing for a Client
+
+Once the dev server is running, here's what to update for each new client project.
+
+### 1. Branding & contact info
+
+Edit [`content/shared.ts`](./content/shared.ts):
+
+- `siteName` — the client's business name
+- `url` — the live production URL (used for SEO canonicals and hreflang alternates)
+- `contact.email`, `contact.phone`, `contact.phoneHref`, `contact.address`
+- `social.instagram`, `social.facebook`, `social.linkedin` — leave empty strings to hide from the footer
+
+### 2. Site metadata
+
+Edit [`app/layout.tsx`](./app/layout.tsx):
+
+Update the `metadata` export to use the client's name and description:
+
+```ts
+export const metadata: Metadata = {
+  title: shared.siteName,
+  description: shared.siteDescription,
+};
+```
+
+### 3. Page copy (i18n dictionaries)
+
+Edit files in [`content/dictionaries/`](./content/dictionaries/):
+
+Each file (`hero.ts`, `about.ts`, `services.ts`, `contact.ts`, etc.) exports `{ en, es }`. Update both locales with the client's content. Types are enforced by [`types/dictionary.ts`](./types/dictionary.ts).
+
+### 4. Design tokens
+
+Edit [`app/globals.css`](./app/globals.css):
+
+- Update `--color-blue-primary` (and its dark-mode counterpart) to the client's brand color
+- Fonts are loaded via `next/font/google` in `app/layout.tsx` — swap Inter / Source Serif 4 if needed
+
+### 5. Deploy
+
+Push to GitHub and connect to [Vercel](https://vercel.com) — zero-config with Next.js App Router. Update `shared.url` to the production URL before launch.
