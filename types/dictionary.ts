@@ -55,6 +55,16 @@ export type ErrorsDict = {
     goBackHome: string
 }
 
+export type PageMetaDict = {
+    title: string
+    description: string
+}
+
+export type MetadataDict = {
+    home: PageMetaDict
+    services: PageMetaDict
+}
+
 export type { Locale }
 
 export type Dictionary = {
@@ -66,4 +76,5 @@ export type Dictionary = {
     form: FormDict
     common: CommonDict
     errors: ErrorsDict
+    metadata: MetadataDict
 }

@@ -8,6 +8,7 @@ import { footerDict } from "./footer"
 import { formDict } from "./form"
 import { commonDict } from "./common"
 import { errorsDict } from "./errors"
+import { metadataDict } from "./metadata"
 
 /** Composed dictionaries per locale. Single source for all translated copy. */
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -20,6 +21,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         form: formDict.en,
         common: commonDict.en,
         errors: errorsDict.en,
+        metadata: metadataDict.en,
     },
     es: {
         hero: heroDict.es,
@@ -30,5 +32,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
         form: formDict.es,
         common: commonDict.es,
         errors: errorsDict.es,
+        metadata: metadataDict.es,
     },
 }
