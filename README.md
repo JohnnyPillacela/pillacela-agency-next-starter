@@ -70,6 +70,33 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 Once the dev server is running, here's what to update for each new client project.
 
+### 0. Decide: single-page or multi-page?
+
+This is the first decision for every client. It determines which components you use and how nav links are written.
+
+| | Tier 1 — Single-page | Tier 2 — Multi-page |
+|-|----------------------|---------------------|
+| **When to use** | Most clients. Everything on one scroll. | Client wants distinct URLs per section (e.g. `/services`, `/about`). |
+| **Components** | `components/briefs/` | `components/sections/` + `components/pages/` |
+| **Nav links** | Hash anchors: `/#services` | Real routes: `/services` |
+| **Section IDs** | Required — `<Section id="services">` so anchors scroll correctly | Not needed for dedicated pages |
+
+**To set the nav mode**, edit [`content/navigation.ts`](./content/navigation.ts):
+
+```ts
+// Tier 1 — single-page (default)
+{ label: "Services", href: "/#services" }
+
+// Tier 2 — multi-page
+{ label: "Services", href: "/services" }
+```
+
+Never mix hash anchors and real routes for the same nav item. If a dedicated page exists, its nav link must point to the route.
+
+> See [`context.md`](./context.md) → "Briefs vs Sections" for the full breakdown.
+
+---
+
 ### 1. Branding & contact info
 
 Edit [`content/shared.ts`](./content/shared.ts):
@@ -105,6 +132,30 @@ Edit [`app/globals.css`](./app/globals.css):
 - Update `--color-blue-primary` (and its dark-mode counterpart) to the client's brand color
 - Fonts are loaded via `next/font/google` in `app/layout.tsx` — swap Inter / Source Serif 4 if needed
 
-### 5. Deploy
+### 5. Adding a new dedicated page
+
+Dedicated pages (like `/services`) follow this pattern:
+
+1. Create the route file: `app/(marketing)/your-page/page.tsx` (and `app/es/(marketing)/tu-pagina/page.tsx` for ES)
+2. Create a page component: `components/pages/YourPage.tsx` — wrap in `<main>`, use `PageHero` for the `<h1>` intro
+3. Add metadata entries to `content/dictionaries/metadata.ts` (both `en` and `es`)
+4. Update `content/navigation.ts` to link to the real route (not a hash anchor)
+
+**Optional: loading skeleton for the route**
+
+To show a loading placeholder during navigation to the new page, add a `loading.tsx` next to the route file:
+
+```tsx
+// app/(marketing)/your-page/loading.tsx
+import { PageSkeleton } from "@/components/layout/page-skeleton"
+
+export default function Loading() {
+    return <PageSkeleton />
+}
+```
+
+`PageSkeleton` is a generic animated pulse layout that works for any marketing page. No changes needed unless the page has a very different visual weight.
+
+### 6. Deploy
 
 Push to GitHub and connect to [Vercel](https://vercel.com) — zero-config with Next.js App Router. Update `shared.url` to the production URL before launch.

@@ -217,24 +217,52 @@ pillacela-agency-next-starter/
 - **Resolution:** `lib/getDictionary.ts` returns full `Dictionary`; `lib/buildNavigation.ts` builds nav from routes + dict.
 - **Navbar/Footer:** Use `getDictionary(locale)`, `buildNavigation(locale, dict.navigation)`, `shared`.
 
-### Briefs vs Sections
+### Briefs vs Sections — Tier 1 vs Tier 2
 
-Two tiers for different client budgets:
+The template supports two client tiers. **This choice drives both the component used and the nav link format.**
 
-| Tier | Folder | Purpose |
-|------|--------|---------|
-| **Briefs** | `components/briefs/` | Compact sections for single-page sites. Minimal layout, scroll anchors (e.g. `#hero`, `#about`, `#services`, `#contact`). |
-| **Sections** | `components/sections/` | Fuller sections for multi-page sites. Nested by feature (e.g. `services/services-list.tsx`). |
+| Tier | Client Type | Components | Nav Links |
+|------|-------------|------------|-----------|
+| **Tier 1** | Single-page site | `components/briefs/` — compact sections, all on one page | Hash anchors: `/#services`, `/es#servicios` |
+| **Tier 2** | Multi-page site | `components/sections/` + dedicated `components/pages/` | Real routes: `/services`, `/es/servicios` |
+
+**Rules:**
+- Brief components must have a matching `id` on their `<Section>` (e.g. `<Section id="services">`) so anchor links scroll correctly.
+- Dedicated page components live in `components/pages/` (e.g. `ServicesPage.tsx`), wrap in `<main>`, and use `PageHero` for the `<h1>`.
+- Never mix hash anchors and real routes for the same nav item. If a page has a dedicated route, its nav link must use the route.
+- `content/navigation.ts` is the **only** place to update hrefs when upgrading a client from Tier 1 to Tier 2.
 
 ### Pages as Compositions
 
-- `components/pages/HomePage.tsx` and `ServicesPage.tsx` receive a `dict` prop and compose briefs/sections.
-- Route pages (e.g. `app/(marketing)/page.tsx`) call `getDictionary(locale)` and pass the result down.
+- `components/pages/HomePage.tsx` and `ServicesPage.tsx` receive a `locale` prop and compose briefs/sections.
+- Route pages (e.g. `app/(marketing)/page.tsx`) pass `locale` down and export `generateMetadata` using `generatePageMetadata` from `lib/seo/metadata.ts`.
+- All dedicated page components wrap their content in `<main>` and use `PageHero` (`components/shared/page-hero.tsx`) for the page-level `<h1>` intro block.
 
-### Config and Navigation
+### Loading Skeletons
 
-- `config/routes.ts` — Route hrefs by locale; labels come from `dict.navigation`.
-- `lib/buildNavigation.ts` — Combines routes and dictionary labels into `{ label, href }[]`.
+Next.js App Router automatically renders the nearest `loading.tsx` during route transitions. The template ships with a reusable skeleton component:
+
+- **`components/layout/page-skeleton.tsx`** — `PageSkeleton`: animated pulse placeholder that mirrors the visual weight of a typical marketing page (hero block + 3 section rows).
+- **`app/(marketing)/loading.tsx`** — Active at the `(marketing)` group level; covers the home page by default.
+
+**To add a skeleton for a new route segment** (e.g. `/about`):
+
+```tsx
+// app/(marketing)/about/loading.tsx
+import { PageSkeleton } from "@/components/layout/page-skeleton"
+
+export default function Loading() {
+    return <PageSkeleton />
+}
+```
+
+Drop the same file at `app/es/(marketing)/acerca/loading.tsx` for the ES locale route. Each `loading.tsx` is scoped to its folder — it only activates for that route segment and its children.
+
+### Navigation
+
+- **`content/navigation.ts`** — Single source of truth for all nav links. Contains both `label` and `href` per locale. Update hrefs here and nowhere else.
+- **Tier 1 (single-page):** hrefs are hash anchors (`/#about`, `/es#about`). The matching `<Section id="about">` on the home page handles scroll.
+- **Tier 2 (multi-page):** hrefs are real page routes (`/about`, `/es/acerca`). The dedicated route and page component must exist before updating the nav.
 
 ---
 
