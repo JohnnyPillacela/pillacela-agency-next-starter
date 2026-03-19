@@ -10,6 +10,7 @@ import { commonDict } from "./common"
 import { errorsDict } from "./errors"
 import { metadataDict } from "./metadata"
 import { testimonialsDict } from "./testimonials"
+import { workDict } from "./work"
 
 /** Composed dictionaries per locale. Single source for all translated copy. */
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -17,6 +18,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         hero: heroDict.en,
         about: aboutDict.en,
         services: servicesDict.en,
+        work: workDict.en,
         contact: contactDict.en,
         footer: footerDict.en,
         form: formDict.en,
@@ -29,6 +31,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         hero: heroDict.es,
         about: aboutDict.es,
         services: servicesDict.es,
+        work: workDict.es,
         contact: contactDict.es,
         footer: footerDict.es,
         form: formDict.es,

@@ -57,6 +57,19 @@ export type ErrorsDict = {
     goBackHome: string
 }
 
+export type WorkItem = {
+    title: string
+    tag: string
+    image: string
+    href?: string
+}
+
+export type WorkDict = {
+    title: string
+    description?: string
+    items: WorkItem[]
+}
+
 export type TestimonialItem = {
     quote: string
     author: string
@@ -86,6 +99,7 @@ export type Dictionary = {
     hero: HeroDict
     about: AboutDict
     services: ServicesDict
+    work: WorkDict
     contact: ContactDict
     footer: FooterDict
     form: FormDict
