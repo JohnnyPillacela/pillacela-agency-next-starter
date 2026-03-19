@@ -42,6 +42,8 @@ export type FormDict = {
     message: string
     submit: string
     sending: string
+    successMessage: string
+    errorMessage: string
 }
 
 export type CommonDict = {
