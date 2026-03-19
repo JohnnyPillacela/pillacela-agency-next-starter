@@ -1,0 +1,19 @@
+---
+description: Codebase exploration — always use tree command instead of glob/semantic search
+alwaysApply: true
+---
+
+# Codebase Exploration
+
+When you need to understand the project structure or explore files, always run this command first:
+
+```bash
+tree -L 4 -I node_modules
+```
+
+## Rules
+
+1. **Never use Glob, SemanticSearch, or Task(explore)** to discover the file/folder structure — use `tree` instead.
+2. Run `tree -L 4 -I node_modules` at the start of any task that requires understanding the project layout.
+3. If you need to go deeper into a specific folder, run `tree -L 4 -I node_modules <folder>` scoped to that path.
+4. After getting the tree output, you may still use `Read` or `Grep` to inspect specific files.
