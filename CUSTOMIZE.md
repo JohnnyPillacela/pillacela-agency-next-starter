@@ -181,6 +181,18 @@ Each file lives in `content/dictionaries/`. Every file has an `en` and `es` bloc
 - [ ] Submit sitemap to Google Search Console: `https://clientdomain.com/sitemap.xml`
 - [ ] Run a [PageSpeed Insights](https://pagespeed.web.dev) test — aim for 90+ on mobile
 - [ ] Run a [meta tag preview](https://www.opengraph.xyz) check for the OG image and title
+- [ ] Confirm the OG image appears correctly when sharing the URL on iMessage, WhatsApp, or Twitter
+
+### OG Image (static — recommended)
+
+Every site needs an OpenGraph image or shared links will look blank/broken in iMessage, WhatsApp, Slack, and social media.
+
+1. Create a **1200 × 630 px** image with the client's logo, name, and tagline
+2. Export as `og-image.jpg` (keep under 300 KB)
+3. Drop it in `public/og-image.jpg`
+4. The root `layout.tsx` metadata block will pick it up automatically via `metadataBase`
+
+> Tools: [Figma](https://figma.com) for design, [Squoosh](https://squoosh.app) to compress. No code needed — this is a static file per client.
 
 ---
 
