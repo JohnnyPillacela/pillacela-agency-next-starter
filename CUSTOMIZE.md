@@ -184,6 +184,57 @@ Each file lives in `content/dictionaries/`. Every file has an `en` and `es` bloc
 
 ---
 
+## Analytics Reference
+
+This template ships with two Vercel packages already wired into `app/layout.tsx`. No configuration needed — they activate automatically on Vercel deployments and are no-ops in local dev.
+
+### `@vercel/analytics` — Traffic & behavior
+
+What it tracks:
+- **Page views** — how many people visited and which pages they hit
+- **Top pages** — home vs. services vs. contact, ranked by volume
+- **Traffic over time** — see spikes after a social post, Google Business update, etc.
+- **Referrers** — where visitors are coming from (Google, Instagram, direct link, etc.)
+- **Countries/regions** — useful for bilingual clients to see the EN vs. ES audience split
+
+What it does NOT need: cookies, consent banners. It's privacy-first and GDPR-compliant by default.
+
+### `@vercel/speed-insights` — Real-world performance
+
+Unlike PageSpeed Insights (which runs a lab test), Speed Insights collects data from actual visitors on their real devices and connections.
+
+What it tracks:
+- **Core Web Vitals** — LCP (load time), CLS (layout shift), INP (interaction responsiveness)
+- **Performance over time** — did a new deploy make things faster or slower?
+- **Device breakdown** — mobile vs. desktop scores separately
+
+> Coming from AWS/CloudWatch: think of this as P50/P95 latency from real end-user sessions, not a synthetic probe. The scores you see are aggregated from actual page loads.
+
+### Free tier limits
+
+Vercel Analytics is free up to **2,500 events/month per project** on the Hobby plan. For a typical small business site that's plenty. If a client grows past that, it becomes part of Vercel's Pro plan ($20/mo).
+
+### When to add Google Analytics instead (or alongside)
+
+Stick with Vercel Analytics only unless the client specifically asks for:
+
+| Need | Add this |
+|---|---|
+| Track specific button/form clicks as conversion events | GA4 |
+| See what Google search keywords drive traffic | GA4 + Google Search Console |
+| Audience demographics (age, interests) | GA4 (requires cookie consent banner) |
+| Goal funnels (e.g. landing page → contact form → submit) | GA4 |
+
+GA4 setup is a billable conversation — don't offer it for free.
+
+### The retainer pitch
+
+> "Every site I build includes real-time analytics. You can see how many people visit, which pages they read, where they're coming from, and how fast the site loads on their phones. No extra cost, no cookie popups."
+
+Monthly retainer touch point: send a 3-bullet summary once a month — "340 visitors, 60% from Google, contact page was #2." Takes 5 minutes, keeps you top of mind, and demonstrates ongoing value.
+
+---
+
 ## Quick Reference — File Map
 
 | What to change | File |
