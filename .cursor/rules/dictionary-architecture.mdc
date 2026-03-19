@@ -1,40 +1,139 @@
 ---
 description: Dictionary and i18n architecture — types, modular sections, shared config, navigation
-globs: content/**/*.ts, types/dictionary.ts, lib/getDictionary.ts, lib/getLayoutDict.ts
+globs: content/**/*.ts, types/dictionary.ts, lib/dictionaries/**/*.ts
 alwaysApply: false
 ---
 
 # Dictionary Architecture
 
-## Structure
+## File Structure
 
-- **`types/dictionary.ts`** — All dictionary types (`HeroDict`, `ServicesDict`, `Dictionary`, `Locale`)
-- **`content/shared.ts`** — Non-translatable config: `siteName`, `siteDescription`, `contact`, `social`, `url`
+- **`types/dictionary.ts`** — All section types and the composed `Dictionary` type
+- **`content/shared.ts`** — Non-translatable config: `siteName`, `contact`, `social`, `url`. Never hardcode these.
 - **`content/navigation.ts`** — Single source of truth for nav: label + href together, keyed by locale
-- **`content/dictionaries/`** — Modular section files (`hero.ts`, `about.ts`, `services.ts`, etc.); each exports `{ en, es }`
-- **`content/dictionaries/index.ts`** — Composes all sections into `dictionaries` record
+- **`content/dictionaries/<section>.ts`** — One file per section (e.g. `faq.ts`, `work.ts`); each exports `{ en, es }`
+- **`content/dictionaries/index.ts`** — Composes all section dicts into `dictionaries: Record<Locale, Dictionary>`
+- **`lib/dictionaries/get<Section>Dict.ts`** — One getter per section: `export function get<Section>Dict(locale: Locale)`
+- **`lib/dictionaries/index.ts`** — Re-exports all getters via `export * from "./get<Section>Dict"`
 
-## Usage
+## Type Conventions (`types/dictionary.ts`)
+
+Each section has its own named type. Sections with lists also define an item type:
 
 ```typescript
-// Navigation (Navbar, Footer) — labels and hrefs in one place
-import { navigation } from "@/content/navigation"
-const navItems = navigation[locale]
+// Simple item type + section type
+export type FaqItem = {
+    question: string
+    answer: string
+}
 
-// Footer labels only
-import { getFooter } from "@/lib/getLayoutDict"
-const footer = getFooter(locale)
+export type FaqDict = {
+    title: string
+    badge?: string           // optional label above heading
+    description?: string
+    items: FaqItem[]
+    ctaTitle?: string        // optional CTA block at bottom of section
+    ctaDescription?: string
+    cta?: string
+    ctaHref?: string
+}
+```
 
-// Full dictionary — pages that need hero, about, services, contact, etc.
-import { getDictionary } from "@/lib/getDictionary"
-const dict = getDictionary(locale)
+All section types are composed into `Dictionary`:
+
+```typescript
+export type Dictionary = {
+    hero: HeroDict
+    about: AboutDict
+    services: ServicesDict
+    work: WorkDict
+    testimonials: TestimonialsDict
+    faq: FaqDict
+    contact: ContactDict
+    footer: FooterDict
+    form: FormDict
+    common: CommonDict
+    errors: ErrorsDict
+    metadata: MetadataDict
+}
+```
+
+## Data Shape (`content/dictionaries/<section>.ts`)
+
+```typescript
+import type { FaqDict } from "@/types/dictionary"
+
+export const faqDict = {
+    en: {
+        title: "Frequently Asked Questions",
+        badge: "FAQ",
+        items: [ ... ],
+    } satisfies FaqDict,
+    es: {
+        title: "Preguntas Frecuentes",
+        badge: "FAQ",
+        items: [ ... ],
+    } satisfies FaqDict,
+} as const
+```
+
+- Use `satisfies <SectionDict>` on each locale object — catches type errors while preserving literal types
+- Use `as const` on the export — keeps string literals narrow
+
+## Wiring (`content/dictionaries/index.ts`)
+
+Import each section dict and spread into both locale records:
+
+```typescript
+import { faqDict } from "./faq"
+
+export const dictionaries: Record<Locale, Dictionary> = {
+    en: { ..., faq: faqDict.en },
+    es: { ..., faq: faqDict.es },
+}
+```
+
+## Getter (`lib/dictionaries/get<Section>Dict.ts`)
+
+```typescript
+import { faqDict } from "@/content/dictionaries/faq"
+import type { Locale } from "@/types/locale"
+
+export function getFaqDict(locale: Locale) {
+    return faqDict[locale]
+}
+```
+
+Then re-export from `lib/dictionaries/index.ts`:
+
+```typescript
+export * from "./getFaqDict"
+```
+
+## Usage in Pages
+
+Import only the getters you need via the barrel:
+
+```typescript
+import { getHeroDict, getFaqDict, getWorkDict } from "@/lib/dictionaries"
+
+export default function HomePage({ locale }: { locale: Locale }) {
+    const hero = getHeroDict(locale)
+    const faq  = getFaqDict(locale)
+    return (
+        <>
+            <BriefHero dict={hero} />
+            <BriefFaq dict={faq} />
+        </>
+    )
+}
 ```
 
 ## Rules
 
 1. **Navigation** — Always use `content/navigation.ts`. Never split labels and hrefs.
-2. **Layout (Navbar/Footer)** — Use `navigation[locale]` and `getFooter(locale)`. Do not import full dictionary.
-3. **Pages** — Use `getDictionary(locale)` for full dict. Add section getters in `lib/` only when actually needed.
-4. **Shared config** — Brand name, contact, social, URLs from `content/shared.ts`. Never hardcode these.
-5. **Add new sections** — Create `content/dictionaries/<section>.ts`, add type to `types/dictionary.ts`, wire in `index.ts`.
-6. **Optional CTAs** — Sections support optional `cta` and `ctaHref` fields.
+2. **Layout (Navbar/Footer)** — Use `getNavigationDict(locale)` and `getFooterDict(locale)`. Do not pull the full dict.
+3. **Shared config** — Brand name, contact, social, URLs always come from `content/shared.ts`. Never hardcode.
+4. **Add a new section** — Four steps: add types to `types/dictionary.ts` → create `content/dictionaries/<section>.ts` → wire in `content/dictionaries/index.ts` → create `lib/dictionaries/get<Section>Dict.ts` and re-export.
+5. **Optional fields** — Use `?` for `badge`, `description`, `cta`, `ctaHref`, `ctaTitle`, `ctaDescription`. Never require copy that might not be needed.
+6. **Item types** — Any section with a list of objects gets a named item type (e.g. `FaqItem`, `WorkItem`, `TestimonialItem`).
