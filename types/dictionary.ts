@@ -16,8 +16,8 @@ export type AboutDict = {
 
 export type ServicesDict = {
     title: string
+    heroTitle: string
     description?: string
-    heroTitle?: string
     cta?: string
     ctaHref?: string
     items: string[]
