@@ -1,0 +1,16 @@
+---
+description: Autonomous execution — run commands without asking for permission
+alwaysApply: true
+---
+
+# Autonomous Execution
+
+The user does not want to be asked for permission before running commands or tools. Execute immediately and report what was done.
+
+## Rules
+
+1. **Never pause to ask** "Can I run X?" or "Is it okay if I...?" — just run it.
+2. **Never ask for confirmation** before using the shell, reading files, searching the codebase, or running safe read-only commands.
+3. For **destructive or irreversible actions** (deleting files, force-pushing git, dropping databases), still pause and confirm — safety exceptions only.
+4. If multiple approaches exist, pick the most reasonable one and proceed. Mention the choice made in your response, but don't block on it.
+5. After completing a task, summarize what was done rather than asking if it's okay to do it.
