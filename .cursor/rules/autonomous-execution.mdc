@@ -1,16 +1,35 @@
 ---
-description: Autonomous execution — run commands without asking for permission
+description: Autonomous execution — defines what the agent can run immediately vs. must confirm
 alwaysApply: true
 ---
 
 # Autonomous Execution
 
-The user does not want to be asked for permission before running commands or tools. Execute immediately and report what was done.
+Run safe operations immediately without asking. Always stop and confirm before any destructive or irreversible action.
 
-## Rules
+## Auto-run without asking (safe)
 
-1. **Never pause to ask** "Can I run X?" or "Is it okay if I...?" — just run it.
-2. **Never ask for confirmation** before using the shell, reading files, searching the codebase, or running safe read-only commands.
-3. For **destructive or irreversible actions** (deleting files, force-pushing git, dropping databases), still pause and confirm — safety exceptions only.
-4. If multiple approaches exist, pick the most reasonable one and proceed. Mention the choice made in your response, but don't block on it.
-5. After completing a task, summarize what was done rather than asking if it's okay to do it.
+- Reading files, listing directories, running `tree`, `ls`, `cat`, `head`, `tail`
+- Searching with `grep`, `rg`, `find`
+- Running `git status`, `git log`, `git diff`, `git branch`
+- Installing dependencies: `npm install`, `pip install`, `pnpm install`
+- Running build/lint/type-check scripts: `npm run build`, `npm run lint`, `tsc`
+- Starting dev servers: `npm run dev`
+- Creating new files or writing to files that do not already exist
+
+## ALWAYS stop and confirm before running
+
+- `rm`, `rmdir`, or any file/folder deletion
+- `git push --force` or `git push -f`
+- `git reset --hard`
+- `git rebase` (interactive or otherwise)
+- `DROP`, `DELETE`, `TRUNCATE` in any database query
+- Overwriting or modifying `.env`, `.env.local`, or any secrets file
+- Any command the user has not previously approved in this session that modifies production systems
+
+## General rules
+
+1. Never ask "Can I run X?" for safe operations — just run it.
+2. If a command is not clearly in the safe list above, treat it as dangerous and confirm first.
+3. If multiple approaches exist, pick the most reasonable one, proceed, and note the choice made.
+4. Summarize what was done after completing a task.
