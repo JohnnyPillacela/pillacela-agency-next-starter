@@ -8,9 +8,11 @@ import BriefPricing from "@/components/briefs/BriefPricing"
 import BriefServices from "@/components/briefs/BriefServices"
 import BriefTestimonials from "@/components/briefs/BriefTestimonials"
 import BriefWork from "@/components/briefs/BriefWork"
+import { CtaBanner } from "@/components/shared/cta-banner"
 import {
     getAboutDict,
     getContactDict,
+    getCtaBannerDict,
     getFaqDict,
     getHeroDict,
     getPricingDict,
@@ -33,6 +35,7 @@ export default function HomePage({ locale }: Props) {
     const testimonials = getTestimonialsDict(locale)
     const faq = getFaqDict(locale)
     const pricing = getPricingDict(locale)
+    const ctaBanner = getCtaBannerDict(locale)
 
     return (
         <>
@@ -42,6 +45,7 @@ export default function HomePage({ locale }: Props) {
             <BriefWork dict={work} />
             <BriefTestimonials dict={testimonials} />
             <BriefPricing dict={pricing} />
+            <CtaBanner dict={ctaBanner} />
             <BriefFaq dict={faq} />
             <BriefContact dict={contact} />
         </>
