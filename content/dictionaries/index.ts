@@ -12,6 +12,7 @@ import { metadataDict } from "./metadata"
 import { testimonialsDict } from "./testimonials"
 import { workDict } from "./work"
 import { faqDict } from "./faq"
+import { pricingDict } from "./pricing"
 
 /** Composed dictionaries per locale. Single source for all translated copy. */
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -28,6 +29,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         metadata: metadataDict.en,
         testimonials: testimonialsDict.en,
         faq: faqDict.en,
+        pricing: pricingDict.en,
     },
     es: {
         hero: heroDict.es,
@@ -42,5 +44,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
         metadata: metadataDict.es,
         testimonials: testimonialsDict.es,
         faq: faqDict.es,
+        pricing: pricingDict.es,
     },
 }

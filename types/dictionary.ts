@@ -95,6 +95,24 @@ export type MetadataDict = {
 
 export type { Locale }
 
+export type PricingTier = {
+    name: string
+    price: string
+    description: string
+    features: string[]
+    cta: string
+    ctaHref: string
+    highlighted?: boolean
+    badge?: string
+}
+
+export type PricingDict = {
+    title: string
+    description?: string
+    badge?: string
+    tiers: [PricingTier, PricingTier, PricingTier]
+}
+
 export type FaqItem = {
     question: string
     answer: string
@@ -124,4 +142,5 @@ export type Dictionary = {
     metadata: MetadataDict
     testimonials: TestimonialsDict
     faq: FaqDict
+    pricing: PricingDict
 }
