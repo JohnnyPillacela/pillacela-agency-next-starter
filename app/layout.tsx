@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Navbar } from "@/components/layout/navbar"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
@@ -52,6 +54,8 @@ export default function RootLayout({
                 {children}
                 <SiteFooter />
                 <Toaster />
+                <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     )
