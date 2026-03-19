@@ -9,8 +9,10 @@ import {
     getContactDict,
     getHeroDict,
     getServicesDict,
+    getTestimonialsDict,
 } from "@/lib/dictionaries"
 import type { Locale } from "@/types/locale"
+import BriefTestimonials from "../briefs/BriefTestimonials"
 
 type Props = {
     locale: Locale
@@ -21,12 +23,14 @@ export default function HomePage({ locale }: Props) {
     const about = getAboutDict(locale)
     const services = getServicesDict(locale)
     const contact = getContactDict(locale)
+    const testimonials = getTestimonialsDict(locale)
 
     return (
         <>
             <BriefHero dict={hero} />
             <BriefAbout dict={about} />
             <BriefServices dict={services} />
+            <BriefTestimonials dict={testimonials} />
             <BriefContact dict={contact} />
         </>
     )
