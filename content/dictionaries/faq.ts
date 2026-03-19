@@ -3,7 +3,12 @@ import type { FaqDict } from "@/types/dictionary"
 export const faqDict = {
     en: {
         title: "Frequently Asked Questions",
+        badge: "FAQ",
         description: "Everything you need to know about working with us.",
+        ctaTitle: "Still have questions?",
+        ctaDescription: "We're happy to help. Reach out directly and we'll get back to you quickly.",
+        cta: "Contact us",
+        ctaHref: "#contact",
         items: [
             // General
             {
@@ -48,7 +53,12 @@ export const faqDict = {
     } satisfies FaqDict,
     es: {
         title: "Preguntas Frecuentes",
+        badge: "FAQ",
         description: "Todo lo que necesitas saber sobre cómo trabajamos.",
+        ctaTitle: "¿Aún tienes preguntas?",
+        ctaDescription: "Estamos aquí para ayudarte. Contáctanos directamente y te responderemos pronto.",
+        cta: "Contáctanos",
+        ctaHref: "#contact",
         items: [
             // General
             {

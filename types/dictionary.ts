@@ -102,8 +102,13 @@ export type FaqItem = {
 
 export type FaqDict = {
     title: string
+    badge?: string
     description?: string
     items: FaqItem[]
+    ctaTitle?: string
+    ctaDescription?: string
+    cta?: string
+    ctaHref?: string
 }
 
 export type Dictionary = {
