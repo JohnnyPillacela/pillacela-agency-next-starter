@@ -1,8 +1,11 @@
+import type { Metadata } from "next"
 import HomePage from "@/components/pages/HomePage"
-import { getHreflang } from "@/lib/seo/getHreflang"
+import { generatePageMetadata } from "@/lib/seo/metadata"
+import { getMetadataDict } from "@/lib/dictionaries"
 
-export async function generateMetadata() {
-    return getHreflang("/", "en")
+export function generateMetadata(): Metadata {
+    const { home } = getMetadataDict("en")
+    return generatePageMetadata({ locale: "en", path: "/", ...home })
 }
 
 export default function Page() {

@@ -1,17 +1,13 @@
-// app/es/(marketing)/services/page.tsx
-
-// This is for people who pay for a website with multiple pages. We can offer 1 page for free.
+import type { Metadata } from "next"
 import ServicesPage from "@/components/pages/ServicesPage"
-import { getHreflang } from "@/lib/seo/getHreflang"
+import { generatePageMetadata } from "@/lib/seo/metadata"
+import { getMetadataDict } from "@/lib/dictionaries"
 
-export async function generateMetadata() {
-    return getHreflang("/services", "es")
+export function generateMetadata(): Metadata {
+    const { services } = getMetadataDict("es")
+    return generatePageMetadata({ locale: "es", path: "/es/servicios", ...services })
 }
 
 export default function Page() {
-    return (
-        <>
-            <ServicesPage locale="es" />
-        </>
-    )
+    return <ServicesPage locale="es" />
 }
