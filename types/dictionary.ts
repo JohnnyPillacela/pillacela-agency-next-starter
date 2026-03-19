@@ -91,6 +91,8 @@ export type PageMetaDict = {
 export type MetadataDict = {
     home: PageMetaDict
     services: PageMetaDict
+    about?: PageMetaDict
+    contact?: PageMetaDict
 }
 
 export type { Locale }
