@@ -13,6 +13,7 @@ import { testimonialsDict } from "./testimonials"
 import { workDict } from "./work"
 import { faqDict } from "./faq"
 import { pricingDict } from "./pricing"
+import { ctaBannerDict } from "./cta-banner"
 
 /** Composed dictionaries per locale. Single source for all translated copy. */
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -30,6 +31,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         testimonials: testimonialsDict.en,
         faq: faqDict.en,
         pricing: pricingDict.en,
+        ctaBanner: ctaBannerDict.en,
     },
     es: {
         hero: heroDict.es,
@@ -45,5 +47,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
         testimonials: testimonialsDict.es,
         faq: faqDict.es,
         pricing: pricingDict.es,
+        ctaBanner: ctaBannerDict.es,
     },
 }

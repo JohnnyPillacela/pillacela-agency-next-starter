@@ -129,6 +129,13 @@ export type FaqDict = {
     ctaHref?: string
 }
 
+export type CtaBannerDict = {
+    title: string
+    description?: string
+    cta: string
+    ctaHref: string
+}
+
 export type Dictionary = {
     hero: HeroDict
     about: AboutDict
@@ -143,4 +150,5 @@ export type Dictionary = {
     testimonials: TestimonialsDict
     faq: FaqDict
     pricing: PricingDict
+    ctaBanner: CtaBannerDict
 }
