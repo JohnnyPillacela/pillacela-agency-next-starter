@@ -57,6 +57,19 @@ export type ErrorsDict = {
     goBackHome: string
 }
 
+export type TestimonialItem = {
+    quote: string
+    author: string
+    role: string
+    avatarUrl?: string
+}
+
+export type TestimonialsDict = {
+    title: string
+    description?: string
+    items: TestimonialItem[]
+}
+
 export type PageMetaDict = {
     title: string
     description: string
@@ -79,4 +92,5 @@ export type Dictionary = {
     common: CommonDict
     errors: ErrorsDict
     metadata: MetadataDict
+    testimonials: TestimonialsDict
 }
