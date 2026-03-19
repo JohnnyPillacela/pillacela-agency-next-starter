@@ -95,6 +95,17 @@ export type MetadataDict = {
 
 export type { Locale }
 
+export type FaqItem = {
+    question: string
+    answer: string
+}
+
+export type FaqDict = {
+    title: string
+    description?: string
+    items: FaqItem[]
+}
+
 export type Dictionary = {
     hero: HeroDict
     about: AboutDict
@@ -107,4 +118,5 @@ export type Dictionary = {
     errors: ErrorsDict
     metadata: MetadataDict
     testimonials: TestimonialsDict
+    faq: FaqDict
 }

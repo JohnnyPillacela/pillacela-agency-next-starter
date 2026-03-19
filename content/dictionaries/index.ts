@@ -11,6 +11,7 @@ import { errorsDict } from "./errors"
 import { metadataDict } from "./metadata"
 import { testimonialsDict } from "./testimonials"
 import { workDict } from "./work"
+import { faqDict } from "./faq"
 
 /** Composed dictionaries per locale. Single source for all translated copy. */
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -26,6 +27,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         errors: errorsDict.en,
         metadata: metadataDict.en,
         testimonials: testimonialsDict.en,
+        faq: faqDict.en,
     },
     es: {
         hero: heroDict.es,
@@ -39,5 +41,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
         errors: errorsDict.es,
         metadata: metadataDict.es,
         testimonials: testimonialsDict.es,
+        faq: faqDict.es,
     },
 }
