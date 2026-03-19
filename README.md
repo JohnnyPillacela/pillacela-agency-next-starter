@@ -159,3 +159,46 @@ export default function Loading() {
 ### 6. Deploy
 
 Push to GitHub and connect to [Vercel](https://vercel.com) — zero-config with Next.js App Router. Update `shared.url` to the production URL before launch.
+
+---
+
+## Performance Monitoring
+
+No extra tooling needed. Use these two built-in signals to catch problems early.
+
+### Build output — catch regressions immediately
+
+Every `npm run build` prints per-route sizes. For a static marketing site these are healthy targets:
+
+| Metric | Healthy | Investigate |
+|---|---|---|
+| First Load JS per route | < 150 KB | > 200 KB |
+| Route size (your code only) | < 10 KB | > 50 KB |
+
+Example of a healthy build output:
+```
+○ /           4.2 kB   101 kB
+○ /services   3.8 kB    98 kB
+○ /es         4.2 kB   101 kB
+```
+
+The second column is your code. The third column is first load JS (your code + shared framework chunks). Watch the third column — if it jumps significantly after adding a dependency, that's your signal to investigate.
+
+**Common causes of bundle bloat:**
+- Installing a large library and only using one function from it (e.g. importing all of `lodash` instead of `lodash/get`)
+- Adding a component library that doesn't support tree-shaking
+- Accidentally importing a server-only module into a client component
+
+### Vercel Speed Insights — catch real-world slowness
+
+After deploying, Speed Insights in your Vercel dashboard shows Core Web Vitals from actual visitor devices. The one to watch most:
+
+| Metric | What it measures | Good | Needs work |
+|---|---|---|---|
+| **LCP** (Largest Contentful Paint) | How fast the main content loads | < 2.5s | > 4s |
+| **CLS** (Cumulative Layout Shift) | Does the page jump around while loading | < 0.1 | > 0.25 |
+| **INP** (Interaction to Next Paint) | How fast the page responds to taps/clicks | < 200ms | > 500ms |
+
+For a static marketing site with no heavy images, LCP should be well under 2s on desktop. Mobile is harder — if LCP goes above 3s on mobile, check image sizes first (unoptimized hero or work section images are the most common culprit).
+
+> If something looks wrong and you need to dig deeper, see `BACKLOG.md` → Bundle Analyzer for how to install and run `@next/bundle-analyzer` as a one-time diagnostic.
