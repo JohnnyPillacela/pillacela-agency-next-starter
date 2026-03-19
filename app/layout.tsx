@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google"
 import { Navbar } from "@/components/layout/navbar"
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { shared } from "@/content/shared"
@@ -50,6 +51,7 @@ export default function RootLayout({
                 <Navbar />
                 {children}
                 <SiteFooter />
+                <Toaster />
             </body>
         </html>
     )
