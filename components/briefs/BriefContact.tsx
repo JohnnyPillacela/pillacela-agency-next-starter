@@ -1,24 +1,24 @@
-import Link from "next/link"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
-import { Button } from "@/components/ui/button"
+import { SectionHeading } from "@/components/shared/section-heading"
+import { ContactInfo } from "@/components/sections/contact/contact-info"
 import type { ContactDict } from "@/types/dictionary"
 
 type Props = {
     dict: ContactDict
 }
-// This is for people who only pay for a single webpage.
+
+// Tier 1 — single-page sites. No form, ever.
 export default function BriefContact({ dict }: Props) {
     return (
         <Section id="contact">
             <Container>
-                <h2 className="text-3xl font-bold mb-8">{dict.title}</h2>
-                <p>{dict.description}</p>
-                {dict.cta && (
-                    <Button asChild className="mt-6">
-                        <Link href={dict.ctaHref ?? "#contact"}>{dict.cta}</Link>
-                    </Button>
-                )}
+                <div className="mx-auto max-w-xl">
+                    <SectionHeading title={dict.title} description={dict.description} />
+                    <div className="mt-8">
+                        <ContactInfo />
+                    </div>
+                </div>
             </Container>
         </Section>
     )
