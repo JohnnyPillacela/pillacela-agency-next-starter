@@ -3,6 +3,7 @@ import type { Locale } from "./locale"
 export type HeroDict = {
     title: string
     subtitle: string
+    sideContent?: string
     cta?: string
     ctaHref?: string
 }
