@@ -6,7 +6,6 @@ import BriefFaq from "@/components/briefs/BriefFaq"
 import BriefHero from "@/components/briefs/BriefHero"
 import BriefPricing from "@/components/briefs/BriefPricing"
 import BriefServices from "@/components/briefs/BriefServices"
-import BriefTestimonials from "@/components/briefs/BriefTestimonials"
 import BriefWork from "@/components/briefs/BriefWork"
 import { CtaBanner } from "@/components/shared/cta-banner"
 import {
@@ -23,6 +22,8 @@ import {
 } from "@/lib/dictionaries"
 import type { Locale } from "@/types/locale"
 import { ContactSection } from "../sections/contact/contact-section"
+import { TestimonialsSection } from "../sections/testimonials/testimonials-section"
+import BriefTestimonials from "../briefs/BriefTestimonials"
 
 type Props = {
     locale: Locale
@@ -47,6 +48,7 @@ export default function HomePage({ locale }: Props) {
             <BriefServices dict={services} />
             <BriefWork dict={work} />
             <BriefTestimonials dict={testimonials} />
+            <TestimonialsSection dict={testimonials} />
             <BriefPricing dict={pricing} />
             <CtaBanner dict={ctaBanner} />
             <BriefFaq dict={faq} />
