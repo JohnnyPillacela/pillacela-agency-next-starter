@@ -9,7 +9,9 @@ export type HeroDict = {
 
 export type AboutDict = {
     title: string
+    tagline?: string
     description: string
+    highlights?: string[]
     cta?: string
     ctaHref?: string
 }
