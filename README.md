@@ -15,7 +15,7 @@ This is a **starter repository**—not a shared library. Each new client project
 - Config-driven branding ([`content/shared.ts`](./content/shared.ts)), navigation ([`content/navigation.ts`](./content/navigation.ts)), and section backgrounds ([`config/sections.ts`](./config/sections.ts))
 - Fast setup so you can scaffold a new site in 30–60 minutes
 
-See [context.md](./context.md) for architecture details. For typography and layout scale guidance (Regular / Large / Hero modes), see [docs/UI-SCALE-GUIDE.md](./docs/UI-SCALE-GUIDE.md).
+See [context.md](./context.md) for architecture details. For typography and layout scale guidance (`Regular`, `Zoomed In`, `Elegant Luxury Premium`), see [docs/UI-SCALE-GUIDE.md](./docs/UI-SCALE-GUIDE.md). This starter defaults to `Regular`.
 
 ---
 
