@@ -1,14 +1,16 @@
-import Link from "next/link"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
-import { Button } from "@/components/ui/button"
+import { CtaButton } from "@/components/shared/cta-button"
 import { sectionBg } from "@/config/sections"
 import type { HeroDict } from "@/types/dictionary"
 
 type Props = {
     dict: HeroDict
 }
+
 // Compact hero for single-page sites. Above-the-fold intro with title and subtitle.
+// TODO: Consider adding a hero image — full-width background or side-by-side layout.
+// Options: full-bg (background-image with overlay), two-col (text left + image/mockup right).
 export default function BriefHero({ dict }: Props) {
     return (
         <Section id="hero" variant={sectionBg.hero} className="py-24 md:py-32">
@@ -21,9 +23,14 @@ export default function BriefHero({ dict }: Props) {
                         {dict.subtitle}
                     </p>
                     {dict.cta && (
-                        <Button asChild className="mt-8" size="lg">
-                            <Link href={dict.ctaHref ?? "#contact"}>{dict.cta}</Link>
-                        </Button>
+                        <CtaButton
+                            href={dict.ctaHref ?? "#contact"}
+                            variant="primary"
+                            size="lg"
+                            className="mt-8"
+                        >
+                            {dict.cta}
+                        </CtaButton>
                     )}
                 </div>
             </Container>

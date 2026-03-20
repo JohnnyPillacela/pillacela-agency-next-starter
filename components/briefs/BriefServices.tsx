@@ -1,9 +1,8 @@
-import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
+import { CtaButton } from "@/components/shared/cta-button"
 import { SectionHeading } from "../shared/section-heading"
-import { Button } from "@/components/ui/button"
 import { sectionBg } from "@/config/sections"
 import type { ServicesDict } from "@/types/dictionary"
 
@@ -27,9 +26,12 @@ export default function BriefServices({ dict }: Props) {
                 </ul>
                 {dict.cta && (
                     <div className="mt-8 text-center">
-                        <Button asChild variant="outline">
-                            <Link href={dict.ctaHref ?? "#contact"}>{dict.cta}</Link>
-                        </Button>
+                        <CtaButton
+                            href={dict.ctaHref ?? "#contact"}
+                            variant="secondary"
+                        >
+                            {dict.cta}
+                        </CtaButton>
                     </div>
                 )}
             </Container>

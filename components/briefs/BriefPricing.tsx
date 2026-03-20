@@ -1,8 +1,8 @@
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
+import { CtaButton } from "@/components/shared/cta-button"
 import { SectionHeading } from "@/components/shared/section-heading"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
@@ -53,13 +53,13 @@ function PricingCard({ tier }: { tier: PricingTier }) {
                 </ul>
             </CardContent>
             <CardFooter>
-                <Button
-                    asChild
+                <CtaButton
+                    href={tier.ctaHref}
+                    variant={tier.highlighted ? "primary" : "secondary"}
                     className="w-full"
-                    variant={tier.highlighted ? "default" : "outline"}
                 >
-                    <a href={tier.ctaHref}>{tier.cta}</a>
-                </Button>
+                    {tier.cta}
+                </CtaButton>
             </CardFooter>
         </Card>
     )

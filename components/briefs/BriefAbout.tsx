@@ -1,8 +1,7 @@
-import Link from "next/link"
 import { Check } from "lucide-react"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
-import { Button } from "@/components/ui/button"
+import { CtaButton } from "@/components/shared/cta-button"
 import { SectionHeading } from "../shared/section-heading"
 import { sectionBg } from "@/config/sections"
 import type { AboutDict } from "@/types/dictionary"
@@ -42,9 +41,12 @@ export default function BriefAbout({ dict }: Props) {
 
                     {dict.cta && (
                         <div className="mt-8">
-                            <Button asChild variant="outline">
-                                <Link href={dict.ctaHref ?? "#services"}>{dict.cta}</Link>
-                            </Button>
+                            <CtaButton
+                                href={dict.ctaHref ?? "#services"}
+                                variant="secondary"
+                            >
+                                {dict.cta}
+                            </CtaButton>
                         </div>
                     )}
                 </div>

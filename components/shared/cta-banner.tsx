@@ -1,6 +1,5 @@
-import Link from "next/link"
 import { Container } from "@/components/layout/container"
-import { Button } from "@/components/ui/button"
+import { CtaButton } from "@/components/shared/cta-button"
 import type { CtaBannerDict } from "@/types/dictionary"
 
 type Props = {
@@ -20,9 +19,9 @@ export function CtaBanner({ dict }: Props) {
                             {dict.description}
                         </p>
                     )}
-                    <Button asChild size="lg" variant="outline" className="border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                        <Link href={dict.ctaHref}>{dict.cta}</Link>
-                    </Button>
+                    <CtaButton href={dict.ctaHref} variant="inverted" size="lg">
+                        {dict.cta}
+                    </CtaButton>
                 </div>
             </Container>
         </section>
