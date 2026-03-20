@@ -28,10 +28,10 @@ export function WorkItemCard({ item, visitSiteLabel }: Props) {
     )
 
     const linkBar = hasLiveSite && (
-        <div className="flex items-center justify-between gap-2 border-t border-border/30 bg-muted/40 px-4 py-2.5 text-xs font-medium tracking-wide text-muted-foreground uppercase transition-colors group-hover:bg-muted/55 group-hover:text-foreground">
+        <div className="flex items-center justify-between gap-2 border-t border-border/30 bg-muted/40 px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors group-hover:bg-muted/55 group-hover:text-foreground">
             <span>{siteLinkLabel}</span>
             <ExternalLink
-                className="size-3.5 shrink-0 opacity-70 transition-opacity group-hover:opacity-100"
+                className="size-4 shrink-0 opacity-70 transition-opacity group-hover:opacity-100"
                 aria-hidden
             />
         </div>
@@ -68,12 +68,7 @@ export function WorkItemCard({ item, visitSiteLabel }: Props) {
                     </p>
                     <Badge
                         variant="outline"
-                        className={cn(
-                            "shrink-0 rounded-full border-primary/25 bg-linear-to-b from-primary/12 to-primary/5 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-primary shadow-[0_1px_2px_rgba(0,0,0,0.05)] ring-1 ring-primary/10 ring-inset",
-                            "dark:border-primary/35 dark:from-primary/18 dark:to-primary/8 dark:text-primary dark:ring-primary/20",
-                            "transition-[box-shadow,background-color,border-color] duration-200",
-                            "group-hover/work:border-primary/35 group-hover/work:from-primary/16 group-hover/work:to-primary/8 group-hover/work:shadow-[0_2px_6px_rgba(0,0,0,0.06)] dark:group-hover/work:from-primary/22 dark:group-hover/work:to-primary/12",
-                        )}
+                        className="shrink-0 rounded-full border-border bg-muted/40 px-2 py-0.5 text-xs font-medium text-muted-foreground"
                     >
                         {item.tag}
                     </Badge>

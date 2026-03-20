@@ -27,13 +27,13 @@ export function TestimonialSectionCard({ item, visitSiteLabel }: Props) {
         <Card
             className={cn(
                 "group/testimonial h-full gap-0 overflow-hidden border-0 py-0 shadow-sm ring-1 ring-border/50",
-                "transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md hover:ring-border",
+                "transition-[box-shadow,ring-color] duration-200 hover:shadow-md hover:ring-border",
             )}
         >
             <div className="relative px-6 pt-8 pb-6">
                 <blockquote className="relative text-[15px] leading-[1.65] text-foreground">
                     <span
-                        className="mb-1 block font-serif text-4xl leading-none text-primary/30 select-none"
+                        className="mb-1 block font-serif text-3xl leading-none text-muted-foreground/50 select-none"
                         aria-hidden
                     >
                         &ldquo;
@@ -48,7 +48,7 @@ export function TestimonialSectionCard({ item, visitSiteLabel }: Props) {
                             target="_blank"
                             rel="noopener noreferrer"
                             prefetch={false}
-                            className="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:border-primary/35 hover:bg-primary/10"
+                            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-muted/40 px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
                             aria-label={`${linkLabel} (opens in a new tab)`}
                         >
                             {linkLabel}
@@ -75,7 +75,7 @@ export function TestimonialSectionCard({ item, visitSiteLabel }: Props) {
                         <p className="text-sm font-semibold leading-tight tracking-tight text-foreground">
                             {item.author}
                         </p>
-                        <p className="text-pretty text-xs leading-snug text-muted-foreground">
+                        <p className="text-pretty text-sm leading-snug text-muted-foreground">
                             {item.role}
                         </p>
                     </div>

@@ -64,7 +64,7 @@ export function SiteFooter() {
 
                     <div className="flex flex-col gap-6 sm:flex-row sm:gap-12">
                         <nav className="space-y-2">
-                            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                            <span className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
                                 {footer.linksLabel}
                             </span>
                             <ul className="flex flex-col gap-2">
@@ -82,7 +82,7 @@ export function SiteFooter() {
                         </nav>
 
                         <div className="space-y-2">
-                            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                            <span className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
                                 {footer.contactLabel}
                             </span>
                             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
@@ -115,7 +115,7 @@ export function SiteFooter() {
                 </div>
 
                 <div className="flex flex-col items-center justify-between gap-3 border-t border-border py-4 sm:flex-row">
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                         © {new Date().getFullYear()} {shared.siteName}.{" "}
                         {footer.rightsReserved}
                     </p>
