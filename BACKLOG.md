@@ -49,12 +49,11 @@ Run with: `ANALYZE=true npm run build`
 ## UI/UX
 
 ### Dark Mode Toggle
-The CSS variables for dark mode are already defined in `globals.css`. All that's missing is a toggle in the Navbar.
+The CSS variables for dark mode are already defined in `globals.css`. `next-themes` is installed. All that's missing is wiring and a toggle in the Navbar.
 
 **How to add:**
-1. `npm install next-themes`
-2. Wrap root layout in `<ThemeProvider>`
-3. Add a `<ModeToggle>` button to the Navbar (shadcn has a recipe for this)
+1. Wrap root layout in `<ThemeProvider>` from `next-themes`
+2. Add a `<ModeToggle>` button to the Navbar (shadcn has a recipe for this)
 
 **When to add:** If a client explicitly asks for it or if you want to offer it as an upsell.
 
@@ -69,6 +68,17 @@ Subtle fade-up animations as sections enter the viewport. Two options:
 ---
 
 ## Advanced Features
+
+### Resend Contact Form
+The contact form API returns success but does not send email. Resend integration is commented out in `app/api/contact/route.ts`.
+
+**How to enable:**
+1. `npm install resend`
+2. Uncomment the Resend block in `app/api/contact/route.ts`
+3. Add `RESEND_API_KEY` and `CONTACT_EMAIL` to `.env.local`
+4. Replace the `from` address with a verified Resend sender domain
+
+**When to add:** Any client that needs contact form submissions delivered by email.
 
 ### CMS Integration
 For clients who need to edit their own content without touching code. Two realistic options:

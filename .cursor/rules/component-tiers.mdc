@@ -20,6 +20,7 @@ Every section in this starter has two tiers. Always respect which tier you're wo
 - Multi-page sites or dedicated section pages
 - Full-featured: forms, tabs, filters, etc.
 - Uses the same shared sub-components as the Tier 1 Brief
+- Can be composed on the home page alongside briefs (e.g. `ContactSection` + `BriefContact`, `TestimonialsSection` + `BriefTestimonials` on HomePage)
 
 ## Shared sub-components (`components/sections/<section>/`)
 

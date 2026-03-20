@@ -9,9 +9,9 @@ alwaysApply: false
 ## File Structure
 
 - **`types/dictionary.ts`** — All section types and the composed `Dictionary` type
-- **`content/shared.ts`** — Non-translatable config: `siteName`, `contact`, `social`, `url`. Never hardcode these.
+- **`content/shared.ts`** — Non-translatable config: `siteName`, `siteDescription`, `url`, `contact`, `social`, `images`. Never hardcode these.
 - **`content/navigation.ts`** — Single source of truth for nav: label + href together, keyed by locale
-- **`content/dictionaries/<section>.ts`** — One file per section (e.g. `faq.ts`, `work.ts`); each exports `{ en, es }`
+- **`content/dictionaries/<section>.ts`** — One file per section (e.g. `faq.ts`, `work.ts`); each exports a const object with `en` and `es` keys
 - **`content/dictionaries/index.ts`** — Composes all section dicts into `dictionaries: Record<Locale, Dictionary>`
 - **`lib/dictionaries/get<Section>Dict.ts`** — One getter per section: `export function get<Section>Dict(locale: Locale)`
 - **`lib/dictionaries/index.ts`** — Re-exports all getters via `export * from "./get<Section>Dict"`
@@ -49,6 +49,8 @@ export type Dictionary = {
     work: WorkDict
     testimonials: TestimonialsDict
     faq: FaqDict
+    pricing: PricingDict
+    ctaBanner: CtaBannerDict
     contact: ContactDict
     footer: FooterDict
     form: FormDict

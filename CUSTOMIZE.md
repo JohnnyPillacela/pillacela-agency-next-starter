@@ -7,7 +7,7 @@ Use this checklist every time you clone this template for a new client. Work top
 ## Phase 1 — Project Setup
 
 - [ ] Clone the repo and rename the folder to the client's project name
-****- [ ] Copy `.env.example` → `.env.local` and fill in all values (see Phase 2)
+- [ ] Copy `.env.example` → `.env.local` and fill in values as needed (see Phase 2)
 - [ ] Run `npm install`
 - [ ] Run `npm run dev` and confirm the site loads at `localhost:3000`
 - [ ] Create a new GitHub repo for the client and push the initial commit
@@ -16,13 +16,15 @@ Use this checklist every time you clone this template for a new client. Work top
 
 ## Phase 2 — Environment Variables
 
-Open `.env.local` and fill in every value before touching content.
+Open `.env.local` and fill in values as needed.
 
 | Variable | Where to get it |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Client's domain (no trailing slash) |
-| `RESEND_API_KEY` | [resend.com](https://resend.com) — create a new API key per client |
-| `CONTACT_EMAIL` | The inbox that receives form submissions |
+| `NEXT_PUBLIC_SITE_URL` | Client's domain (no trailing slash). Keep in sync with `content/shared.ts → url`. |
+| `RESEND_API_KEY` | [resend.com](https://resend.com) — create a new API key per client. *Required only if enabling email sending.* |
+| `CONTACT_EMAIL` | The inbox that receives form submissions. *Required only if enabling email sending.* |
+
+> **Contact form:** The form returns success by default but does not send email until you uncomment and configure Resend in `app/api/contact/route.ts` (run `npm install resend` first).
 
 ---
 
@@ -31,8 +33,8 @@ Open `.env.local` and fill in every value before touching content.
 ### `content/shared.ts` — The single source of truth for non-translatable data
 
 - [ ] `siteName` — Client's business name (used in metadata title template and footer)
-- [ ] `siteDescription` — One-sentence brand description (used in root metadata)
-- [ ] `url` — Client's live domain, e.g. `https://clientdomain.com` (must match `NEXT_PUBLIC_SITE_URL`)
+- [ ] `siteDescription` — One-sentence brand description (used in root metadata and footer)
+- [ ] `url` — Client's live domain, e.g. `https://clientdomain.com` (drives sitemap, robots, hreflang; keep in sync with `NEXT_PUBLIC_SITE_URL`)
 - [ ] `contact.email` — Client's contact email
 - [ ] `contact.phone` — Display-formatted phone, e.g. `(305) 555-0100`
 - [ ] `contact.phoneHref` — Machine-readable tel link, e.g. `tel:+13055550100`
@@ -40,6 +42,7 @@ Open `.env.local` and fill in every value before touching content.
 - [ ] `social.instagram` — Full URL or leave `""` to hide
 - [ ] `social.facebook` — Full URL or leave `""` to hide
 - [ ] `social.linkedin` — Full URL or leave `""` to hide
+- [ ] `images.ogImage` — Path to OG image, e.g. `/website-screenshots/og-image.png` (or add `public/og-image.jpg` and use `/og-image.jpg`)
 
 ### `config/sections.ts` — Section backgrounds
 
@@ -126,8 +129,8 @@ Each file lives in `content/dictionaries/`. Every file has an `en` and `es` bloc
 - [ ] Replace placeholder projects with the client's actual portfolio items (EN + ES)
   - `title` — Project or client name
   - `tag` — Service category (e.g. "Web Design", "SEO")
-  - `image` — Path relative to `/public`, e.g. `/images/work/project-name.jpg`
-- [ ] Add corresponding images to `public/images/work/` (see Phase 5 — Assets)
+  - `image` — Path relative to `/public`, e.g. `/website-screenshots/project-name.png` (or external URL)
+- [ ] Add corresponding images to `public/website-screenshots/` (see Phase 5 — Assets)
 - [ ] If the client has no portfolio yet, remove the `BriefWork` import from `HomePage.tsx`
 
 ### `faq.ts`
@@ -178,11 +181,10 @@ Each file lives in `content/dictionaries/`. Every file has an `en` and `es` bloc
 
 - [ ] Replace `app/favicon.ico` with the client's favicon
   - Export a 32×32 or 64×64 `.ico` from the logo, or use a favicon generator
-- [ ] Add portfolio/work images to `public/images/work/`
-  - Format: `public/images/work/<project-slug>.jpg`
+- [ ] Add portfolio/work images to `public/website-screenshots/` (or another path matching `work.ts`)
+  - Use paths like `/website-screenshots/<project-slug>.png` in `content/dictionaries/work.ts`
   - Recommended size: 800×600 px, compressed under 200 KB
-  - Match the filenames referenced in `content/dictionaries/work.ts`
-- [ ] If the client provides an OG image, add it as `public/og-image.jpg` (1200×630 px)
+- [ ] If the client provides an OG image, add it as `public/og-image.jpg` (1200×630 px) and set `shared.images.ogImage` in `content/shared.ts`
 
 ---
 
@@ -190,11 +192,10 @@ Each file lives in `content/dictionaries/`. Every file has an `en` and `es` bloc
 
 ### Before deploying
 
-- [ ] `app/robots.ts` — Confirm the `host` URL matches the client's domain
-- [ ] `app/sitemap.ts` — Confirm the `baseUrl` matches the client's domain
+- [ ] Confirm `content/shared.ts → url` matches the client's domain (this drives `app/robots.ts` and `app/sitemap.ts`)
 - [ ] Run `npm run build` — zero errors, zero type errors
 - [ ] Check `localhost:3000` in mobile view — confirm layout looks right
-- [ ] Submit the contact form — confirm email arrives in the `CONTACT_EMAIL` inbox
+- [ ] Submit the contact form — confirms submission works (if Resend is configured, verify email arrives in `CONTACT_EMAIL`)
 - [ ] Check all nav links scroll to the correct section (or route to the correct page)
 - [ ] Verify `<html lang="en">` on the EN route and `<html lang="es">` on `/es`
 - [ ] Confirm hreflang tags appear in `<head>` on both routes
@@ -291,5 +292,5 @@ Monthly retainer touch point: send a 3-bullet summary once a month — "340 visi
 | CTA banner | `content/dictionaries/cta-banner.ts` |
 | Nav links | `content/navigation.ts` |
 | Favicon | `app/favicon.ico` |
-| Work images | `public/images/work/*.jpg` |
+| Work images | `public/website-screenshots/*` (or paths in `work.ts`) |
 | Environment secrets | `.env.local` |

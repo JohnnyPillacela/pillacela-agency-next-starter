@@ -14,7 +14,7 @@
 - [Design Principles](#design-principles)
 - [Current Structure](#current-structure)
 - [Current Patterns](#current-patterns)
-- [Changes Needed](#changes-needed)
+- [Future Additions](#future-additions)
 
 ---
 
@@ -131,22 +131,24 @@ The architecture should support:
 
 ## Design Principles
 
-The architecture should **clearly separate responsibilities** between:
+The architecture **clearly separates responsibilities** between:
 
 | Layer | Purpose |
 |-------|---------|
 | `components/ui` | Reusable design system primitives / shadcn-based components |
-| `components/layout` | Layout and structural components (container, section, navbar, footer) |
-| `components/briefs` | Compact sections for single-page sites (e.g. BriefHero, BriefAbout, BriefServices, BriefContact) |
+| `components/layout` | Layout and structural components (container, section, navbar, footer, language-switcher, page-skeleton) |
+| `components/briefs` | Compact sections for single-page sites (BriefHero, BriefAbout, BriefServices, BriefWork, BriefTestimonials, BriefPricing, BriefFaq, BriefContact) |
 | `components/pages` | Page-level compositions that assemble briefs and sections |
-| `components/sections` | Full marketing sections for multi-page sites (nested by feature) |
-| `components/shared` | Shared UI helpers (e.g. section-heading) |
-| `content/dictionaries` | Modular i18n per section (hero, about, services, etc.); composed in `index.ts` |
-| `content/shared` | Non-translatable config (siteName, contact, social, url) |
-| `config` | Branding, business info, site metadata, locale-aware navigation |
-| `lib` | Helper functions, utilities, getDictionary, SEO helpers |
+| `components/sections` | Full marketing sections (contact, testimonials, work, services) — can be used on home page or dedicated routes |
+| `components/shared` | Shared UI helpers (section-heading, page-hero, cta-banner) |
+| `content/dictionaries` | Modular i18n per section; composed in `index.ts`; types in `types/dictionary.ts` |
+| `content/shared` | Non-translatable config (siteName, siteDescription, contact, social, url, images) |
+| `content/navigation` | Single source of truth for nav labels and hrefs per locale |
+| `config` | Section backgrounds (`sections.ts`), site re-exports (`site.ts`) |
+| `lib/dictionaries` | Per-section getters (`getHeroDict`, `getNavigationDict`, etc.) |
+| `lib/seo` | `metadata.ts` (generatePageMetadata), `getHreflang.ts` |
 
-> The template should work like a **system of building blocks**, not a one-off project.
+> The template works like a **system of building blocks**, not a one-off project.
 
 ---
 
@@ -158,50 +160,79 @@ The following reflects the **actual** project structure as implemented.
 pillacela-agency-next-starter/
 ├── app/
 │   ├── (marketing)/
+│   │   ├── loading.tsx
 │   │   ├── page.tsx              # Home (en)
 │   │   └── services/
 │   │       └── page.tsx
 │   ├── es/(marketing)/
+│   │   ├── loading.tsx
 │   │   ├── page.tsx              # Home (es)
 │   │   └── servicios/
 │   │       └── page.tsx
+│   ├── api/contact/
+│   │   └── route.ts              # Contact form handler (Resend optional)
 │   ├── globals.css
-│   └── layout.tsx               # Root layout + Navbar
+│   ├── layout.tsx                # Root layout, metadata from shared, Navbar, Footer
+│   ├── not-found.tsx
+│   ├── robots.ts                 # Uses shared.url for sitemap
+│   └── sitemap.ts                # Uses shared.url, locale alternates
 ├── components/
-│   ├── briefs/                  # Single-page compact sections
+│   ├── briefs/
 │   │   ├── BriefAbout.tsx
 │   │   ├── BriefContact.tsx
+│   │   ├── BriefFaq.tsx
 │   │   ├── BriefHero.tsx
-│   │   └── BriefServices.tsx
+│   │   ├── BriefPricing.tsx
+│   │   ├── BriefServices.tsx
+│   │   ├── BriefTestimonials.tsx
+│   │   └── BriefWork.tsx
 │   ├── layout/
 │   │   ├── container.tsx
-│   │   ├── navbar.tsx           # Locale-aware header
+│   │   ├── language-switcher.tsx
+│   │   ├── navbar.tsx            # Uses getNavigationDict, shared
+│   │   ├── page-skeleton.tsx
 │   │   ├── section.tsx
-│   │   └── site-footer.tsx
-│   ├── pages/                   # Page compositions
+│   │   └── site-footer.tsx       # Uses getFooterDict, getNavigationDict, shared
+│   ├── pages/
 │   │   ├── HomePage.tsx
 │   │   └── ServicesPage.tsx
-│   ├── sections/                # Multi-page full sections
-│   │   └── services/
-│   │       └── services-list.tsx
+│   ├── sections/
+│   │   ├── contact/              # contact-section, contact-form, contact-info
+│   │   ├── services/
+│   │   │   └── services-list.tsx
+│   │   ├── testimonials/
+│   │   └── work/
 │   ├── shared/
+│   │   ├── cta-banner.tsx
+│   │   ├── page-hero.tsx
 │   │   └── section-heading.tsx
-│   └── ui/                      # shadcn primitives
+│   └── ui/                       # shadcn primitives
 ├── config/
-│   ├── routes.ts                # Route hrefs by locale (labels from dictionary)
-│   └── site.ts                  # Re-exports shared
+│   ├── sections.ts               # Section background variants
+│   └── site.ts                   # Re-exports from shared
 ├── content/
-│   ├── shared.ts                # Non-translatable: siteName, contact, social
+│   ├── navigation.ts             # Nav labels + hrefs per locale — single source of truth
+│   ├── shared.ts                 # siteName, siteDescription, url, contact, social, images
 │   └── dictionaries/
-│       ├── index.ts             # Composes en/es dictionaries
-│       ├── hero.ts
-│       ├── about.ts
-│       ├── services.ts
-│       └── ... (navigation, footer, form, common, errors)
+│       ├── index.ts              # Composes en/es dictionaries
+│       ├── hero.ts, about.ts, services.ts, work.ts
+│       ├── testimonials.ts, pricing.ts, faq.ts, contact.ts
+│       ├── cta-banner.ts, metadata.ts
+│       ├── footer.ts, form.ts, common.ts, errors.ts
+│       └── ...
 ├── lib/
-│   ├── getDictionary.ts
-│   ├── buildNavigation.ts       # Routes + dict labels → nav items
+│   ├── dictionaries/
+│   │   ├── get*Dict.ts           # One getter per section (getHeroDict, getNavigationDict, etc.)
+│   │   └── index.ts              # Re-exports
+│   ├── getLayoutDict.ts
+│   ├── seo/
+│   │   ├── metadata.ts           # generatePageMetadata
+│   │   └── getHreflang.ts
+│   ├── validations/contact.ts
 │   └── utils.ts
+├── types/
+│   ├── dictionary.ts
+│   └── locale.ts
 └── ... (next.config, tailwind, postcss, etc.)
 ```
 
@@ -213,9 +244,16 @@ pillacela-agency-next-starter/
 
 - **Routes:** `/` and `/services` for English; `/es` and `/es/servicios` for Spanish.
 - **Dictionary:** `content/dictionaries/` — modular section files composed in `index.ts`; types in `types/dictionary.ts`.
-- **Shared:** `content/shared.ts` — siteName, contact, social, url (non-translatable).
-- **Resolution:** `lib/getDictionary.ts` returns full `Dictionary`; `lib/buildNavigation.ts` builds nav from routes + dict.
-- **Navbar/Footer:** Use `getDictionary(locale)`, `buildNavigation(locale, dict.navigation)`, `shared`.
+- **Shared:** `content/shared.ts` — siteName, siteDescription, url, contact, social, images (non-translatable).
+- **Resolution:** Per-section getters in `lib/dictionaries/` (e.g. `getHeroDict(locale)`, `getNavigationDict(locale)`). No monolithic `getDictionary`.
+- **Navbar/Footer:** Use `getNavigationDict(locale)`, `getFooterDict(locale)`, and `shared`. Navigation comes from `content/navigation.ts` (labels and hrefs together).
+
+### Metadata and SEO
+
+- **Root layout** (`app/layout.tsx`): Sets `metadataBase`, title template, description from `shared.siteName` and `shared.siteDescription`.
+- **Page-level metadata:** Route pages call `generatePageMetadata` from `lib/seo/metadata.ts` with locale, path, title, description from `getMetadataDict`.
+- **Hreflang:** `lib/seo/getHreflang.ts` builds alternates from `shared.url` and path.
+- **Sitemap / robots:** `app/sitemap.ts` and `app/robots.ts` use `shared.url` — no separate env var. Keep `content/shared.ts → shared.url` in sync with the client domain.
 
 ### Briefs vs Sections — Tier 1 vs Tier 2
 
@@ -232,49 +270,55 @@ The template supports two client tiers. **This choice drives both the component 
 - Never mix hash anchors and real routes for the same nav item. If a page has a dedicated route, its nav link must use the route.
 - `content/navigation.ts` is the **only** place to update hrefs when upgrading a client from Tier 1 to Tier 2.
 
+**Note:** Tier 2 sections (e.g. `ContactSection`, `TestimonialsSection`) can appear on the home page alongside briefs. The default HomePage renders both brief and full variants for testimonials and contact.
+
+### Home Page Composition
+
+`components/pages/HomePage.tsx` composes:
+
+1. **BriefHero** — Hero block
+2. **BriefAbout** — About section
+3. **BriefServices** — Services list
+4. **BriefWork** — Portfolio/work cards
+5. **BriefTestimonials** — Compact testimonials (Tier 1)
+6. **TestimonialsSection** — Full testimonials section (Tier 2) — *both variants rendered*
+7. **BriefPricing** — Pricing tiers
+8. **CtaBanner** — Call-to-action banner
+9. **BriefFaq** — FAQ accordion
+10. **BriefContact** — Contact info only (Tier 1)
+11. **ContactSection** — Contact info + form (Tier 2) — *both variants rendered*
+
+For a lean single-page client, remove `TestimonialsSection` and `ContactSection` from HomePage and keep only the brief variants.
+
 ### Pages as Compositions
 
-- `components/pages/HomePage.tsx` and `ServicesPage.tsx` receive a `locale` prop and compose briefs/sections.
-- Route pages (e.g. `app/(marketing)/page.tsx`) pass `locale` down and export `generateMetadata` using `generatePageMetadata` from `lib/seo/metadata.ts`.
+- `HomePage` and `ServicesPage` receive a `locale` prop and compose briefs/sections.
+- Route pages (e.g. `app/(marketing)/page.tsx`) pass `locale` down and export `generateMetadata` using `generatePageMetadata` from `lib/seo/metadata.ts` and titles/descriptions from `getMetadataDict`.
 - All dedicated page components wrap their content in `<main>` and use `PageHero` (`components/shared/page-hero.tsx`) for the page-level `<h1>` intro block.
 
 ### Loading Skeletons
 
-Next.js App Router automatically renders the nearest `loading.tsx` during route transitions. The template ships with a reusable skeleton component:
+- **`components/layout/page-skeleton.tsx`** — `PageSkeleton`: animated pulse placeholder.
+- **`app/(marketing)/loading.tsx`** — Active at the `(marketing)` group level.
 
-- **`components/layout/page-skeleton.tsx`** — `PageSkeleton`: animated pulse placeholder that mirrors the visual weight of a typical marketing page (hero block + 3 section rows).
-- **`app/(marketing)/loading.tsx`** — Active at the `(marketing)` group level; covers the home page by default.
-
-**To add a skeleton for a new route segment** (e.g. `/about`):
-
-```tsx
-// app/(marketing)/about/loading.tsx
-import { PageSkeleton } from "@/components/layout/page-skeleton"
-
-export default function Loading() {
-    return <PageSkeleton />
-}
-```
-
-Drop the same file at `app/es/(marketing)/acerca/loading.tsx` for the ES locale route. Each `loading.tsx` is scoped to its folder — it only activates for that route segment and its children.
+To add a skeleton for a new route, create `loading.tsx` in that route folder and use `<PageSkeleton />`.
 
 ### Navigation
 
-- **`content/navigation.ts`** — Single source of truth for all nav links. Contains both `label` and `href` per locale. Update hrefs here and nowhere else.
-- **Tier 1 (single-page):** hrefs are hash anchors (`/#about`, `/es#about`). The matching `<Section id="about">` on the home page handles scroll.
-- **Tier 2 (multi-page):** hrefs are real page routes (`/about`, `/es/acerca`). The dedicated route and page component must exist before updating the nav.
+- **`content/navigation.ts`** — Single source of truth for all nav links. Contains both `label` and `href` per locale. Consumed via `getNavigationDict(locale)`.
+- **Tier 1 (single-page):** hrefs are hash anchors (`/#about`, `/es#about`).
+- **Tier 2 (multi-page):** hrefs are real page routes (`/about`, `/es/acerca`).
 
 ---
 
-## Planned Additions / Changes Needed
+## Future Additions
 
-Items to align with the full architecture:
+Items not yet implemented or intentionally deferred:
 
 | Priority | Item | Notes |
 |----------|------|-------|
-| 1 | ~~**Site footer**~~ | Done. `components/layout/site-footer.tsx` uses `getDictionary`, `buildNavigation`, `shared`, `dict.footer`. |
-| 2 | **Nav links for multi-page** | Add `/services` to en nav and `/es/servicios` to es nav when offering multi-page; currently nav uses hash links. |
-| 3 | **Metadata from site config** | Update `app/layout.tsx` to use `siteConfig.name` and `siteConfig.description` instead of placeholder text. |
-| 4 | **Contact page** | Add `app/(marketing)/contact/page.tsx` and `app/es/(marketing)/contacto/page.tsx`; add to nav. |
-| 5 | ~~**Dictionary typing**~~ | Done. Strongly typed in `types/dictionary.ts`; all components use typed props. |
-| 6 | **Optional later** | `lib/metadata.ts` for `generateMetadata`, `app/not-found.tsx`, `robots.ts`, `sitemap.ts`, `app/api/contact/route.ts`, `.env.example`. |
+| 1 | **Contact page** | Add `app/(marketing)/contact/page.tsx` and `app/es/(marketing)/contacto/page.tsx`; add to nav. |
+| 2 | **Resend integration** | Uncomment and configure email sending in `app/api/contact/route.ts`; run `npm install resend`. |
+| 3 | **Nav links for multi-page** | When offering multi-page, update `content/navigation.ts` to use real routes for Services, About, etc. |
+
+See `BACKLOG.md` for additional future work (Playwright, Storybook, dark mode, CMS, etc.).
