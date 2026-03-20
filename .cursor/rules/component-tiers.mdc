@@ -1,0 +1,53 @@
+---
+description: Component tier convention — Brief* (Tier 1) vs *Section (Tier 2+) and shared sub-components
+globs: components/briefs/**/*.tsx, components/sections/**/*.tsx, components/pages/**/*.tsx
+alwaysApply: false
+---
+
+# Component Tiers
+
+Every section in this starter has two tiers. Always respect which tier you're working in.
+
+## Tier 1 — `Brief*` (`components/briefs/`)
+
+- Single-page / landing-page sites
+- Compact, no forms, no heavy interactions
+- Uses the **same dict** as its Tier 2 counterpart
+- Renders shared sub-components from `components/sections/<section>/`
+
+## Tier 2+ — `*Section` (`components/sections/<section>/`)
+
+- Multi-page sites or dedicated section pages
+- Full-featured: forms, tabs, filters, etc.
+- Uses the same shared sub-components as the Tier 1 Brief
+
+## Shared sub-components (`components/sections/<section>/`)
+
+- Reusable pieces used by **both** tiers
+- Must never depend on which tier is rendering them
+
+**Concrete example — Contact:**
+
+```
+components/sections/contact/
+  contact-info.tsx     ← shared: email/phone/address with icons, pulls from shared.ts
+  contact-form.tsx     ← shared: the actual form (Tier 2+ only via ContactSection)
+  contact-section.tsx  ← Tier 2+: two-col, ContactInfo left + ContactForm right
+
+components/briefs/
+  BriefContact.tsx     ← Tier 1: SectionHeading + ContactInfo, no form, period
+```
+
+## Adding a new section
+
+1. Create shared sub-component(s) in `components/sections/<section>/`
+2. `components/briefs/Brief<Section>.tsx` — Tier 1, uses the sub-component(s), no form
+3. `components/sections/<section>/<Section>Section.tsx` — Tier 2+, same sub-components + extras
+4. Follow the dictionary-architecture rule for any new copy fields
+
+## Rules
+
+1. **Never add a form to a `Brief*` component.** Forms belong in `*Section` only.
+2. **Never duplicate contact info, site name, or social links** — always pull from `content/shared.ts`.
+3. **Shared sub-components have no tier awareness** — they receive props or pull from `shared`, never from a tier-specific context.
+4. **Dict shape is shared** — both tiers use the same getter (e.g. `getContactDict`). Don't create separate dicts per tier.
