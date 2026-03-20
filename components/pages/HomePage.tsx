@@ -14,6 +14,7 @@ import {
     getContactDict,
     getCtaBannerDict,
     getFaqDict,
+    getFormDict,
     getHeroDict,
     getPricingDict,
     getServicesDict,
@@ -21,6 +22,7 @@ import {
     getWorkDict,
 } from "@/lib/dictionaries"
 import type { Locale } from "@/types/locale"
+import { ContactSection } from "../sections/contact/contact-section"
 
 type Props = {
     locale: Locale
@@ -36,6 +38,7 @@ export default function HomePage({ locale }: Props) {
     const faq = getFaqDict(locale)
     const pricing = getPricingDict(locale)
     const ctaBanner = getCtaBannerDict(locale)
+    const form = getFormDict(locale)
 
     return (
         <>
@@ -48,6 +51,7 @@ export default function HomePage({ locale }: Props) {
             <CtaBanner dict={ctaBanner} />
             <BriefFaq dict={faq} />
             <BriefContact dict={contact} />
+            <ContactSection dict={contact} form={form}/>
         </>
     )
 }
