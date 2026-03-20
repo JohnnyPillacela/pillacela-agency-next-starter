@@ -19,7 +19,7 @@ type Props = {
     visitSiteLabel?: string
 }
 
-/** Shared by BriefTestimonials (Tier 1) and TestimonialsSection (Tier 2). No screenshots — optional client link only. */
+/** Tier 1 / landing: compact card. Tier 2 uses `TestimonialSectionCard` instead. */
 export function TestimonialCard({ item, visitSiteLabel }: Props) {
     const linkLabel = visitSiteLabel?.trim() || "Visit site"
 
