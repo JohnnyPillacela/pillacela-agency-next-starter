@@ -233,6 +233,8 @@ pillacela-agency-next-starter/
 ├── types/
 │   ├── dictionary.ts
 │   └── locale.ts
+├── docs/
+│   └── UI-SCALE-GUIDE.md        # Typography and layout scale guidance (Regular / Large / Hero)
 └── ... (next.config, tailwind, postcss, etc.)
 ```
 
@@ -308,6 +310,10 @@ To add a skeleton for a new route, create `loading.tsx` in that route folder and
 - **`content/navigation.ts`** — Single source of truth for all nav links. Contains both `label` and `href` per locale. Consumed via `getNavigationDict(locale)`.
 - **Tier 1 (single-page):** hrefs are hash anchors (`/#about`, `/es#about`).
 - **Tier 2 (multi-page):** hrefs are real page routes (`/about`, `/es/acerca`).
+
+### Design Guidance
+
+- **`docs/UI-SCALE-GUIDE.md`** — Typography and layout scale modes (Regular, Large, Hero) for matching the site feel to the brand. Use when tuning hero, sections, and form density for a new client.
 
 ---
 

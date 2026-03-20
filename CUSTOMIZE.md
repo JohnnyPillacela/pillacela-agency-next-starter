@@ -69,6 +69,8 @@ Available variants:
 
 - [ ] Adjust section variants to match the client's desired visual rhythm
 
+> **UI scale:** For typography and layout sizing guidance (Regular / Large / Hero modes), see [docs/UI-SCALE-GUIDE.md](./docs/UI-SCALE-GUIDE.md).
+
 ### `app/globals.css` — Brand colors
 
 Update the CSS variables in `:root` to match the client's brand palette. The key ones:
@@ -215,10 +217,9 @@ Every site needs an OpenGraph image or shared links will look blank/broken in iM
 
 1. Create a **1200 × 630 px** image with the client's logo, name, and tagline
 2. Export as `og-image.jpg` (keep under 300 KB)
-3. Drop it in `public/og-image.jpg`
-4. The root `layout.tsx` metadata block will pick it up automatically via `metadataBase`
+3. Add it as `app/opengraph-image.jpg` — Next.js picks this up automatically as the default OG image. Alternatively, add `public/og-image.jpg` and wire `openGraph: { images: [shared.images.ogImage] }` in `app/layout.tsx` (set `shared.images.ogImage` in `content/shared.ts`).
 
-> Tools: [Figma](https://figma.com) for design, [Squoosh](https://squoosh.app) to compress. No code needed — this is a static file per client.
+> Tools: [Figma](https://figma.com) for design, [Squoosh](https://squoosh.app) to compress.
 
 ---
 
@@ -293,4 +294,5 @@ Monthly retainer touch point: send a 3-bullet summary once a month — "340 visi
 | Nav links | `content/navigation.ts` |
 | Favicon | `app/favicon.ico` |
 | Work images | `public/website-screenshots/*` (or paths in `work.ts`) |
+| UI scale / typography | `docs/UI-SCALE-GUIDE.md` |
 | Environment secrets | `.env.local` |
