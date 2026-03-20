@@ -10,8 +10,9 @@ This is a **starter repository**—not a shared library. Each new client project
 
 - A clean, reusable architecture for agency sites
 - Built-in i18n (English / Spanish)
-- Brief-style sections (Hero, About, Services, Contact) for single-page sites
-- Config-driven branding and navigation
+- Brief-style sections (Hero, About, Services, Work, Testimonials, Pricing, FAQ, Contact) for single-page sites
+- Full section variants (contact form, testimonials, work) for richer layouts
+- Config-driven branding ([`content/shared.ts`](./content/shared.ts)), navigation ([`content/navigation.ts`](./content/navigation.ts)), and section backgrounds ([`config/sections.ts`](./config/sections.ts))
 - Fast setup so you can scaffold a new site in 30–60 minutes
 
 See [context.md](./context.md) for architecture details.
@@ -108,16 +109,7 @@ Edit [`content/shared.ts`](./content/shared.ts):
 
 ### 2. Site metadata
 
-Edit [`app/layout.tsx`](./app/layout.tsx):
-
-Update the `metadata` export to use the client's name and description:
-
-```ts
-export const metadata: Metadata = {
-  title: shared.siteName,
-  description: shared.siteDescription,
-};
-```
+The root layout reads from [`content/shared.ts`](./content/shared.ts) (`siteName`, `siteDescription`). Per-page SEO titles and descriptions come from [`content/dictionaries/metadata.ts`](./content/dictionaries/metadata.ts). Update both locales when customizing.
 
 ### 3. Page copy (i18n dictionaries)
 
@@ -129,7 +121,8 @@ Each file (`hero.ts`, `about.ts`, `services.ts`, `contact.ts`, etc.) exports `{ 
 
 Edit [`app/globals.css`](./app/globals.css):
 
-- Update `--color-blue-primary` (and its dark-mode counterpart) to the client's brand color
+- Update `--primary` (and `.dark` block) to the client's brand color
+- Section backgrounds are controlled in [`config/sections.ts`](./config/sections.ts) — `"default"`, `"muted"`, `"accent"`, or `"primary"`
 - Fonts are loaded via `next/font/google` in `app/layout.tsx` — swap Inter / Source Serif 4 if needed
 
 ### 5. Adding a new dedicated page
@@ -158,7 +151,7 @@ export default function Loading() {
 
 ### 6. Deploy
 
-Push to GitHub and connect to [Vercel](https://vercel.com) — zero-config with Next.js App Router. Update `shared.url` to the production URL before launch.
+Push to GitHub and connect to [Vercel](https://vercel.com) — zero-config with Next.js App Router. Update `shared.url` in [`content/shared.ts`](./content/shared.ts) to the production URL before launch. The sitemap and robots files use this value.
 
 ---
 
