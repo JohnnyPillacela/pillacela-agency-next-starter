@@ -63,12 +63,15 @@ export type WorkItem = {
     title: string
     tag: string
     image: string
+    /** Live client site — opens in a new tab from the work card. */
     href?: string
 }
 
 export type WorkDict = {
     title: string
     description?: string
+    /** Label for the image → live site link row when `href` is set. */
+    visitSiteLabel?: string
     items: WorkItem[]
 }
 
@@ -77,11 +80,15 @@ export type TestimonialItem = {
     author: string
     role: string
     avatarUrl?: string
+    /** Optional client site link (text only — no screenshots in testimonials). */
+    websiteUrl?: string
 }
 
 export type TestimonialsDict = {
     title: string
     description?: string
+    /** Label for optional `websiteUrl` link (e.g. “Visit client site”). */
+    visitSiteLabel?: string
     items: TestimonialItem[]
 }
 
