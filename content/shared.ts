@@ -15,4 +15,7 @@ export const shared = {
         facebook: "",
         linkedin: "",
     },
+    images: {
+        ogImage: "/website-screenshots/pillacela-hero.png",
+    },
 } as const
