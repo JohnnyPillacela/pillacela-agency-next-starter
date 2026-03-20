@@ -4,6 +4,7 @@ import { Section } from "@/components/layout/section"
 import { SectionHeading } from "@/components/shared/section-heading"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { sectionBg } from "@/config/sections"
 import type { WorkDict, WorkItem } from "@/types/dictionary"
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 // This is for people who only pay for a single webpage.
 export default function BriefWork({ dict }: Props) {
     return (
-        <Section id="work">
+        <Section id="work" variant={sectionBg.work}>
             <Container>
                 <SectionHeading
                     title={dict.title}

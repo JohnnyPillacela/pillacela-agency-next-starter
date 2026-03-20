@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
 import { SectionHeading } from "../shared/section-heading"
 import { Button } from "@/components/ui/button"
+import { sectionBg } from "@/config/sections"
 import type { ServicesDict } from "@/types/dictionary"
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 // Tier 1 — single-page sites. No form, no heavy interactions.
 export default function BriefServices({ dict }: Props) {
     return (
-        <Section id="services">
+        <Section id="services" variant={sectionBg.services}>
             <Container>
                 <SectionHeading title={dict.title} description={dict.description} align="center" />
                 <ul className="mx-auto max-w-xl divide-y divide-border">

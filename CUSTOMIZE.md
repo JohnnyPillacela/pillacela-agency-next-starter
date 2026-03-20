@@ -41,6 +41,31 @@ Open `.env.local` and fill in every value before touching content.
 - [ ] `social.facebook` — Full URL or leave `""` to hide
 - [ ] `social.linkedin` — Full URL or leave `""` to hide
 
+### `config/sections.ts` — Section backgrounds
+
+Controls the background variant of every section in one place. No need to touch individual components.
+
+```ts
+export const sectionBg = {
+    hero:         "default",  // bg-background (plain)
+    about:        "muted",    // bg-muted/40 (subtle gray)
+    services:     "default",
+    work:         "muted",
+    testimonials: "default",
+    pricing:      "muted",
+    faq:          "default",
+    contact:      "muted",
+}
+```
+
+Available variants:
+- `"default"` — plain page background
+- `"muted"` — subtle gray tint
+- `"accent"` — brand accent color (set via `--accent` in `globals.css`)
+- `"primary"` — full primary brand color with light text
+
+- [ ] Adjust section variants to match the client's desired visual rhythm
+
 ### `app/globals.css` — Brand colors
 
 Update the CSS variables in `:root` to match the client's brand palette. The key ones:

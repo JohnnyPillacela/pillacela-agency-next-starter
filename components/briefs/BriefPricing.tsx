@@ -11,6 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { sectionBg } from "@/config/sections"
 import type { PricingDict, PricingTier } from "@/types/dictionary"
 import { Check } from "lucide-react"
 
@@ -66,7 +67,7 @@ function PricingCard({ tier }: { tier: PricingTier }) {
 
 export default function BriefPricing({ dict }: Props) {
     return (
-        <Section id="pricing">
+        <Section id="pricing" variant={sectionBg.pricing}>
             <Container>
                 <div className="flex flex-col items-center">
                     {dict.badge && (

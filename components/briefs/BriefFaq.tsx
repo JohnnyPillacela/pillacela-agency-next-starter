@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { shared } from "@/content/shared"
+import { sectionBg } from "@/config/sections"
 import type { FaqDict } from "@/types/dictionary"
 import { Mail, Phone } from "lucide-react"
 
@@ -21,7 +22,7 @@ type Props = {
 // This is for people who only pay for a single webpage.
 export default function BriefFaq({ dict }: Props) {
     return (
-        <Section id="faq">
+        <Section id="faq" variant={sectionBg.faq}>
             <Container>
                 <div className="flex flex-col items-center">
                     {dict.badge && (

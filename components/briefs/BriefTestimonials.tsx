@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/section"
 import { SectionHeading } from "@/components/shared/section-heading"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
+import { sectionBg } from "@/config/sections"
 import type { TestimonialItem, TestimonialsDict } from "@/types/dictionary"
 
 type Props = {
@@ -21,7 +22,7 @@ function getInitials(name: string) {
 // This is for people who only pay for a single webpage.
 export default function BriefTestimonials({ dict }: Props) {
     return (
-        <Section id="testimonials">
+        <Section id="testimonials" variant={sectionBg.testimonials}>
             <Container>
                 <SectionHeading
                     title={dict.title}

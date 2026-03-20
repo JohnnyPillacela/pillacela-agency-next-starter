@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
 import { Button } from "@/components/ui/button"
 import { SectionHeading } from "../shared/section-heading"
+import { sectionBg } from "@/config/sections"
 import type { AboutDict } from "@/types/dictionary"
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 // Tier 1 — single-page sites. No form, no heavy interactions.
 export default function BriefAbout({ dict }: Props) {
     return (
-        <Section id="about">
+        <Section id="about" variant={sectionBg.about}>
             <Container>
                 <div className="mx-auto max-w-2xl text-center">
                     <SectionHeading
