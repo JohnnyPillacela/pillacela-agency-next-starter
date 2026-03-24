@@ -1,17 +1,21 @@
 // app/api/contact/route.ts
 
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { contactSchema } from "@/lib/validations/contact"
+import { checkRateLimit } from "@/lib/rateLimit"
+import { sendLeadEmail } from "@/lib/resend"
 
-export async function POST(request: Request) {
+// Response codes:
+//   200 – success (also returned silently for honeypot hits so bots don't retry)
+//   422 – Zod validation failed (invalid or missing fields)
+//   429 – rate limit exceeded (5 submissions per IP per hour)
+//   500 – Resend threw unexpectedly (email not delivered)
+export async function POST(request: NextRequest) {
     const body = await request.json()
 
     // Honeypot: silently accept so bots do not retry with different payloads.
     const honeypot = (body as { website?: unknown }).website
-    if (
-        honeypot != null &&
-        String(honeypot).trim() !== ""
-    ) {
+    if (honeypot != null && String(honeypot).trim() !== "") {
         return NextResponse.json({ success: true })
     }
 
@@ -24,25 +28,29 @@ export async function POST(request: Request) {
         )
     }
 
-    // TODO: Uncomment and configure to enable real email sending with Resend.
-    // 1. Run: npm install resend
-    // 2. Add RESEND_API_KEY and CONTACT_EMAIL to .env.local (see .env.example)
-    // 3. Replace "from" with a verified Resend sender domain
-    //
-    // import { Resend } from "resend"
-    // const resend = new Resend(process.env.RESEND_API_KEY)
-    // await resend.emails.send({
-    //     from: "Contact Form <noreply@yourdomain.com>",
-    //     to: process.env.CONTACT_EMAIL!,
-    //     subject: `New message from ${result.data.name}`,
-    //     text: [
-    //         `Name: ${result.data.name}`,
-    //         `Email: ${result.data.email}`,
-    //         ``,
-    //         `Message:`,
-    //         result.data.message,
-    //     ].join("\n"),
-    // })
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown"
+    const { allowed } = checkRateLimit(ip)
+
+    if (!allowed) {
+        return NextResponse.json(
+            { error: "Too many requests. Please try again later." },
+            { status: 429 }
+        )
+    }
+
+    // TODO: When adding a database, insert the lead here before sending the email.
+    // The ID returned from the insert can be included in the success response.
+    // Example: const lead = await db.lead.create({ data: result.data })
+
+    try {
+        await sendLeadEmail(result.data)
+    } catch(error) {
+        console.error(error)
+        return NextResponse.json(
+            { error: "Failed to send message. Please try again later." },
+            { status: 500 }
+        )
+    }
 
     return NextResponse.json({ success: true })
 }
