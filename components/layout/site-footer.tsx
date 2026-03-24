@@ -4,6 +4,7 @@ import { ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { shared } from "@/content/shared"
+import { useContact } from "@/hooks/useContact"
 import { getFooterDict, getNavigationDict } from "@/lib/dictionaries"
 import { Container } from "./container"
 import { LanguageSwitcher } from "./language-switcher"
@@ -43,7 +44,7 @@ export function SiteFooter() {
     const locale = pathname?.startsWith("/es") ? "es" : "en"
     const navItems = getNavigationDict(locale)
     const footer = getFooterDict(locale)
-    const { contact } = shared
+    const { email, phone, phoneHref, address } = useContact()
 
     return (
         <footer className="mt-auto w-full border-t border-border bg-muted/30">
@@ -88,25 +89,25 @@ export function SiteFooter() {
                             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
                                 <li>
                                     <a
-                                        href={`mailto:${contact.email}`}
+                                        href={`mailto:${email}`}
                                         className={linkStyles}
                                     >
-                                        {contact.email}
+                                        {email}
                                     </a>
                                 </li>
-                                {contact.phone && (
+                                {phone && (
                                     <li>
                                         <a
-                                            href={contact.phoneHref}
+                                            href={phoneHref}
                                             className={linkStyles}
                                         >
-                                            {contact.phone}
+                                            {phone}
                                         </a>
                                     </li>
                                 )}
-                                {contact.address && (
+                                {address && (
                                     <li className="max-w-[200px] leading-relaxed">
-                                        {contact.address}
+                                        {address}
                                     </li>
                                 )}
                             </ul>

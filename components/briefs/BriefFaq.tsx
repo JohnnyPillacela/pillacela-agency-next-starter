@@ -8,12 +8,10 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { shared } from "@/content/shared"
+import { FaqContactCta } from "./FaqContactCta"
 import { sectionBg } from "@/config/sections"
 import type { FaqDict } from "@/types/dictionary"
-import { Mail, Phone } from "lucide-react"
 
 type Props = {
     dict: FaqDict
@@ -63,20 +61,7 @@ export default function BriefFaq({ dict }: Props) {
                                     </p>
                                 )}
                             </div>
-                            <div className="flex flex-wrap justify-center gap-3">
-                                <Button asChild>
-                                    <a href={shared.contact.phoneHref}>
-                                        <Phone className="mr-2 size-4" />
-                                        {shared.contact.phone}
-                                    </a>
-                                </Button>
-                                <Button variant="outline" asChild>
-                                    <a href={`mailto:${shared.contact.email}`}>
-                                        <Mail className="mr-2 size-4" />
-                                        {shared.contact.email}
-                                    </a>
-                                </Button>
-                            </div>
+                            <FaqContactCta />
                         </CardContent>
                     </Card>
                 )}
