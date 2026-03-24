@@ -15,7 +15,7 @@ This is a **starter repository**—not a shared library. Each new client project
 - Config-driven branding ([`content/shared.ts`](./content/shared.ts)), navigation ([`content/navigation.ts`](./content/navigation.ts)), and section backgrounds ([`config/sections.ts`](./config/sections.ts))
 - Fast setup so you can scaffold a new site in 30–60 minutes
 
-See [context.md](./context.md) for architecture details. For typography and layout scale guidance (`Regular`, `Zoomed In`, `Elegant Luxury Premium`), see [docs/UI-SCALE-GUIDE.md](./docs/UI-SCALE-GUIDE.md). This starter defaults to `Regular`.
+See [context.md](./context.md) for architecture details. For typography and layout scale guidance (`Regular`, `Zoomed In`, `Elegant Luxury Premium`), see [docs/UI-SCALE-GUIDE.md](./docs/UI-SCALE-GUIDE.md). This starter defaults to `Regular`. For how contact info is shown, how JSON-LD and the contact-form honeypot fit in, and client-facing talking points, see [docs/CONTACT-OBFUSCATION.md](./docs/CONTACT-OBFUSCATION.md).
 
 ---
 
@@ -106,6 +106,8 @@ Edit [`content/shared.ts`](./content/shared.ts):
 - `url` — the live production URL (used for SEO canonicals and hreflang alternates)
 - `contact.email`, `contact.phone`, `contact.phoneHref`, `contact.address`
 - `social.instagram`, `social.facebook`, `social.linkedin` — leave empty strings to hide from the footer
+
+Email and phone links in the UI use [`hooks/useContact.ts`](./hooks/useContact.ts); full contact for SEO is also in JSON-LD in [`app/layout.tsx`](./app/layout.tsx). See [docs/CONTACT-OBFUSCATION.md](./docs/CONTACT-OBFUSCATION.md) for the full model (scrapers, honeypot, what to tell clients).
 
 ### 2. Site metadata
 

@@ -256,6 +256,7 @@ pillacela-agency-next-starter/
 - **Page-level metadata:** Route pages call `generatePageMetadata` from `lib/seo/metadata.ts` with locale, path, title, description from `getMetadataDict`.
 - **Hreflang:** `lib/seo/getHreflang.ts` builds alternates from `shared.url` and path.
 - **Sitemap / robots:** `app/sitemap.ts` and `app/robots.ts` use `shared.url` — no separate env var. Keep `content/shared.ts → shared.url` in sync with the client domain.
+- **Contact (spam reduction):** Real values stay in `content/shared.ts` only. Clickable email/phone in the UI go through `hooks/useContact` (client-side assembly). JSON-LD `LocalBusiness` in `app/layout.tsx` exposes full contact for search engines. The contact form includes a honeypot field; the API silently accepts those submissions without processing. See [docs/CONTACT-OBFUSCATION.md](./docs/CONTACT-OBFUSCATION.md).
 
 ### Briefs vs Sections — Tier 1 vs Tier 2
 

@@ -44,6 +44,8 @@ Open `.env.local` and fill in values as needed.
 - [ ] `social.linkedin` — Full URL or leave `""` to hide
 - [ ] `images.ogImage` — Path to OG image, e.g. `/website-screenshots/og-image.png` (or add `public/og-image.jpg` and use `/og-image.jpg`)
 
+**Contact display & spam reduction:** Keep all real contact values only in `content/shared.ts`. The template renders clickable email/phone via `useContact` (client-side assembly), exposes full contact to search engines via JSON-LD in `app/layout.tsx`, and uses a honeypot field on the contact form. You don’t duplicate emails in components. See [docs/CONTACT-OBFUSCATION.md](./docs/CONTACT-OBFUSCATION.md) for behavior, limitations, and short client talking points.
+
 ### `config/sections.ts` — Section backgrounds
 
 Controls the background variant of every section in one place. No need to touch individual components.
