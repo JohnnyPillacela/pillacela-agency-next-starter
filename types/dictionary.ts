@@ -58,6 +58,8 @@ export type CommonDict = {
 export type ErrorsDict = {
     pageNotFound: string
     goBackHome: string
+    somethingWentWrong: string
+    tryAgain: string
 }
 
 export type WorkItem = {
