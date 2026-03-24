@@ -6,6 +6,15 @@ import { contactSchema } from "@/lib/validations/contact"
 export async function POST(request: Request) {
     const body = await request.json()
 
+    // Honeypot: silently accept so bots do not retry with different payloads.
+    const honeypot = (body as { website?: unknown }).website
+    if (
+        honeypot != null &&
+        String(honeypot).trim() !== ""
+    ) {
+        return NextResponse.json({ success: true })
+    }
+
     const result = contactSchema.safeParse(body)
 
     if (!result.success) {

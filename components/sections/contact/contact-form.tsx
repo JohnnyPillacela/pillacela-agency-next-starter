@@ -22,6 +22,7 @@ export function ContactForm({ form }: Props) {
         formState: { errors, isSubmitting },
     } = useForm<ContactFormValues>({
         resolver: zodResolver(contactSchema),
+        defaultValues: { website: "" },
     })
 
     async function onSubmit(data: ContactFormValues) {
@@ -47,6 +48,16 @@ export function ContactForm({ form }: Props) {
             noValidate
             className="w-full max-w-xl space-y-5"
         >
+            {/* Honeypot — hidden from users; bots that fill every field trip this. */}
+            <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+                {...register("website")}
+            />
+
             <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-1.5">
                     <Label htmlFor="name">{form.name}</Label>
