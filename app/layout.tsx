@@ -23,6 +23,21 @@ const fontMono = JetBrains_Mono({
     variable: "--font-mono",
 })
 
+/** Full contact in JSON-LD for local SEO; intentionally unobfuscated (see contact obfuscation plan). */
+const localBusinessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness" as const,
+    name: shared.siteName,
+    url: shared.url,
+    telephone: shared.contact.phoneHref.replace(/^tel:/, ""),
+    email: shared.contact.email,
+    image: new URL(shared.images.ogImage, shared.url).href,
+    address: {
+        "@type": "PostalAddress" as const,
+        streetAddress: shared.contact.address,
+    },
+}
+
 export const metadata: Metadata = {
     metadataBase: new URL(shared.url),
     title: {
@@ -50,6 +65,12 @@ export default function RootLayout({
             <body
                 className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`}
             >
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(localBusinessJsonLd),
+                    }}
+                />
                 <Navbar />
                 {children}
                 <SiteFooter />
