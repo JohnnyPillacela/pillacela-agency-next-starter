@@ -46,64 +46,72 @@ export function ContactForm({ form }: Props) {
         <form
             onSubmit={handleSubmit(onSubmit)}
             noValidate
-            className="w-full max-w-xl space-y-5"
+            className="w-full max-w-xl"
         >
-            {/* Honeypot — hidden from users; bots that fill every field trip this. */}
-            <input
-                type="text"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                className="hidden"
-                {...register("website")}
-            />
-
-            <div className="grid gap-5 sm:grid-cols-2">
-                <div className="space-y-1.5">
-                    <Label htmlFor="name">{form.name}</Label>
-                    <Input
-                        id="name"
-                        type="text"
-                        autoComplete="name"
-                        aria-invalid={!!errors.name}
-                        {...register("name")}
-                    />
-                    {errors.name && (
-                        <p className="text-xs text-destructive">{errors.name.message}</p>
-                    )}
-                </div>
-
-                <div className="space-y-1.5">
-                    <Label htmlFor="email">{form.email}</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        autoComplete="email"
-                        aria-invalid={!!errors.email}
-                        {...register("email")}
-                    />
-                    {errors.email && (
-                        <p className="text-xs text-destructive">{errors.email.message}</p>
-                    )}
-                </div>
-            </div>
-
-            <div className="space-y-1.5">
-                <Label htmlFor="message">{form.message}</Label>
-                <Textarea
-                    id="message"
-                    className="min-h-32"
-                    aria-invalid={!!errors.message}
-                    {...register("message")}
+            <div className="space-y-5">
+                {/* Honeypot — hidden from users; bots that fill every field trip this. */}
+                <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                    {...register("website")}
                 />
-                {errors.message && (
-                    <p className="text-xs text-destructive">{errors.message.message}</p>
-                )}
-            </div>
 
-            <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? form.sending : form.submit}
-            </Button>
+                <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                        <Label htmlFor="name">{form.name}</Label>
+                        <Input
+                            id="name"
+                            type="text"
+                            autoComplete="name"
+                            aria-invalid={!!errors.name}
+                            {...register("name")}
+                        />
+                        {errors.name && (
+                            <p className="text-xs text-destructive">
+                                {errors.name.message}
+                            </p>
+                        )}
+                    </div>
+
+                    <div className="space-y-1.5">
+                        <Label htmlFor="email">{form.email}</Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            autoComplete="email"
+                            aria-invalid={!!errors.email}
+                            {...register("email")}
+                        />
+                        {errors.email && (
+                            <p className="text-xs text-destructive">
+                                {errors.email.message}
+                            </p>
+                        )}
+                    </div>
+                </div>
+
+                <div className="space-y-1.5">
+                    <Label htmlFor="message">{form.message}</Label>
+                    <Textarea
+                        id="message"
+                        className="min-h-32"
+                        aria-invalid={!!errors.message}
+                        {...register("message")}
+                    />
+                    {errors.message && (
+                        <p className="text-xs text-destructive">
+                            {errors.message.message}
+                        </p>
+                    )}
+                </div>
+
+                <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? form.sending : form.submit}
+                </Button>
+            </div>
         </form>
     )
 }
