@@ -14,11 +14,12 @@ import type { SectionVariant } from "@/components/layout/section"
  */
 export const sectionBg = {
     hero:         "default",
-    about:        "muted",
-    services:     "default",
-    work:         "muted",
-    testimonials: "default",
-    pricing:      "muted",
-    faq:          "default",
-    contact:      "muted",
+    painPoints:   "muted",
+    about:        "default",
+    services:     "muted",
+    work:         "default",
+    testimonials: "muted",
+    pricing:      "default",
+    faq:          "muted",
+    contact:      "default",
 } as const satisfies Record<string, SectionVariant>

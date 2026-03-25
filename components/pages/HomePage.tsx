@@ -4,6 +4,7 @@ import BriefAbout from "@/components/briefs/BriefAbout"
 import BriefContact from "@/components/briefs/BriefContact"
 import BriefFaq from "@/components/briefs/BriefFaq"
 import BriefHero from "@/components/briefs/BriefHero"
+import BriefPainPoints from "@/components/briefs/BriefPainPoints"
 import BriefPricing from "@/components/briefs/BriefPricing"
 import BriefServices from "@/components/briefs/BriefServices"
 import BriefWork from "@/components/briefs/BriefWork"
@@ -15,6 +16,7 @@ import {
     getFaqDict,
     getFormDict,
     getHeroDict,
+    getPainPointsDict,
     getPricingDict,
     getServicesDict,
     getTestimonialsDict,
@@ -31,6 +33,7 @@ type Props = {
 
 export default function HomePage({ locale }: Props) {
     const hero = getHeroDict(locale)
+    const painPoints = getPainPointsDict(locale)
     const about = getAboutDict(locale)
     const services = getServicesDict(locale)
     const work = getWorkDict(locale)
@@ -44,6 +47,7 @@ export default function HomePage({ locale }: Props) {
     return (
         <>
             <BriefHero dict={hero} />
+            <BriefPainPoints dict={painPoints} />
             <BriefAbout dict={about} />
             <BriefServices dict={services} />
             <BriefWork dict={work} />
