@@ -156,6 +156,15 @@ export type PainPointsDict = {
     closing?: string
 }
 
+export type StatItem = {
+    value: string
+    label: string
+}
+
+export type StatsDict = {
+    items: StatItem[]
+}
+
 export type Dictionary = {
     hero: HeroDict
     about: AboutDict
@@ -172,4 +181,5 @@ export type Dictionary = {
     pricing: PricingDict
     ctaBanner: CtaBannerDict
     painPoints: PainPointsDict
+    stats: StatsDict
 }
