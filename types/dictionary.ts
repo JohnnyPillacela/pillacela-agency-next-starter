@@ -150,6 +150,12 @@ export type CtaBannerDict = {
     ctaHref: string
 }
 
+export type PainPointsDict = {
+    title?: string
+    items: string[]
+    closing?: string
+}
+
 export type Dictionary = {
     hero: HeroDict
     about: AboutDict
@@ -165,4 +171,5 @@ export type Dictionary = {
     faq: FaqDict
     pricing: PricingDict
     ctaBanner: CtaBannerDict
+    painPoints: PainPointsDict
 }
