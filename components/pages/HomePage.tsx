@@ -51,9 +51,8 @@ export default function HomePage({ locale }: Props) {
         <>
             <BriefHero dict={hero} />
             <BriefPainPoints dict={painPoints} />
-            <BriefStats dict={stats} />
             <BriefAbout dict={about} />
-            <BriefServices dict={services} />
+            <BriefServices dict={services} stats={stats} />
             <BriefWork dict={work} />
             <BriefTestimonials dict={testimonials} />
             <TestimonialsSection dict={testimonials} />
