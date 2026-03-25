@@ -15,7 +15,8 @@ import type { SectionVariant } from "@/components/layout/section"
 export const sectionBg = {
     hero:         "default",
     painPoints:   "muted",
-    about:        "default",
+    stats:        "default",
+    about:        "muted",
     services:     "muted",
     work:         "default",
     testimonials: "muted",

@@ -17,6 +17,7 @@ import {
     getFormDict,
     getHeroDict,
     getPainPointsDict,
+    getStatsDict,
     getPricingDict,
     getServicesDict,
     getTestimonialsDict,
@@ -26,6 +27,7 @@ import type { Locale } from "@/types/locale"
 import { ContactSection } from "../sections/contact/contact-section"
 import { TestimonialsSection } from "../sections/testimonials/testimonials-section"
 import BriefTestimonials from "../briefs/BriefTestimonials"
+import BriefStats from "../briefs/BriefStats"
 
 type Props = {
     locale: Locale
@@ -34,6 +36,7 @@ type Props = {
 export default function HomePage({ locale }: Props) {
     const hero = getHeroDict(locale)
     const painPoints = getPainPointsDict(locale)
+    const stats = getStatsDict(locale)
     const about = getAboutDict(locale)
     const services = getServicesDict(locale)
     const work = getWorkDict(locale)
@@ -48,6 +51,7 @@ export default function HomePage({ locale }: Props) {
         <>
             <BriefHero dict={hero} />
             <BriefPainPoints dict={painPoints} />
+            <BriefStats dict={stats} />
             <BriefAbout dict={about} />
             <BriefServices dict={services} />
             <BriefWork dict={work} />
