@@ -22,4 +22,5 @@ export const sectionBg = {
     pricing:      "default",
     faq:          "muted",
     contact:      "default",
+    owner:        "muted",
 } as const satisfies Record<string, SectionVariant>

@@ -1,6 +1,7 @@
 // /components/pages/HomePage.tsx
 
 import BriefAbout from "@/components/briefs/BriefAbout"
+import BriefOwner from "@/components/briefs/BriefOwner"
 import BriefContact from "@/components/briefs/BriefContact"
 import BriefFaq from "@/components/briefs/BriefFaq"
 import BriefHero from "@/components/briefs/BriefHero"
@@ -18,6 +19,7 @@ import {
     getHeroDict,
     getPainPointsDict,
     getStatsDict,
+    getOwnerDict,
     getPricingDict,
     getServicesDict,
     getTestimonialsDict,
@@ -27,8 +29,6 @@ import type { Locale } from "@/types/locale"
 import { ContactSection } from "../sections/contact/contact-section"
 import { TestimonialsSection } from "../sections/testimonials/testimonials-section"
 import BriefTestimonials from "../briefs/BriefTestimonials"
-import BriefStats from "../briefs/BriefStats"
-
 type Props = {
     locale: Locale
 }
@@ -38,6 +38,7 @@ export default function HomePage({ locale }: Props) {
     const painPoints = getPainPointsDict(locale)
     const stats = getStatsDict(locale)
     const about = getAboutDict(locale)
+    const owner = getOwnerDict(locale)
     const services = getServicesDict(locale)
     const work = getWorkDict(locale)
     const contact = getContactDict(locale)
@@ -61,6 +62,7 @@ export default function HomePage({ locale }: Props) {
             <BriefFaq dict={faq} />
             <BriefContact dict={contact} />
             <ContactSection dict={contact} form={form}/>
+            <BriefOwner dict={owner} />
         </>
     )
 }
