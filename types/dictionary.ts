@@ -165,6 +165,19 @@ export type StatsDict = {
     items: StatItem[]
 }
 
+export type ServiceAreaItem = {
+    city: string
+    state?: string  // e.g. "FL"
+    slug: string    // e.g. "coral-gables" — used by Tier 3 city pages
+}
+
+export type ServiceAreasDict = {
+    title: string
+    description?: string
+    items: ServiceAreaItem[]
+    note?: string   // e.g. "Serving clients remotely across the US."
+}
+
 export type TrustBadgeItem = {
     label: string
 }
@@ -215,4 +228,5 @@ export type Dictionary = {
     owner: OwnerDict
     process: ProcessDict
     trustBadges: TrustBadgesDict
+    serviceAreas: ServiceAreasDict
 }
