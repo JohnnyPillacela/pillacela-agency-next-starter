@@ -11,7 +11,7 @@ type Props = {
 // Tier 1 — standalone section wrapper. Use when stats are not embedded in another section.
 export default function BriefStats({ dict }: Props) {
     return (
-        <Section id="stats" variant={sectionBg.stats}>
+        <Section id="stats" variant={sectionBg.owner}>
             <Container>
                 <StatStrip items={dict.items} />
             </Container>
