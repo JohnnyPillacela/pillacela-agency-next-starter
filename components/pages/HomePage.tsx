@@ -22,6 +22,7 @@ import {
     getStatsDict,
     getOwnerDict,
     getProcessDict,
+    getTrustBadgesDict,
     getPricingDict,
     getServicesDict,
     getTestimonialsDict,
@@ -47,6 +48,7 @@ export default function HomePage({ locale }: Props) {
     const contact = getContactDict(locale)
     const testimonials = getTestimonialsDict(locale)
     const faq = getFaqDict(locale)
+    const trustBadges = getTrustBadgesDict(locale)
     const pricing = getPricingDict(locale)
     const ctaBanner = getCtaBannerDict(locale)
     const form = getFormDict(locale)
@@ -61,7 +63,7 @@ export default function HomePage({ locale }: Props) {
             <BriefWork dict={work} />
             <BriefTestimonials dict={testimonials} />
             <TestimonialsSection dict={testimonials} />
-            <BriefPricing dict={pricing} />
+            <BriefPricing dict={pricing} trustBadges={trustBadges} />
             <CtaBanner dict={ctaBanner} />
             <BriefFaq dict={faq} />
             <BriefContact dict={contact} />

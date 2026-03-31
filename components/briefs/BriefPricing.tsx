@@ -11,12 +11,14 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { TrustStrip } from "@/components/sections/trust-badges/trust-strip"
 import { sectionBg } from "@/config/sections"
-import type { PricingDict, PricingTier } from "@/types/dictionary"
+import type { PricingDict, PricingTier, TrustBadgesDict } from "@/types/dictionary"
 import { Check } from "lucide-react"
 
 type Props = {
     dict: PricingDict
+    trustBadges?: TrustBadgesDict
 }
 
 function PricingCard({ tier }: { tier: PricingTier }) {
@@ -65,7 +67,7 @@ function PricingCard({ tier }: { tier: PricingTier }) {
     )
 }
 
-export default function BriefPricing({ dict }: Props) {
+export default function BriefPricing({ dict, trustBadges }: Props) {
     return (
         <Section id="pricing" variant={sectionBg.pricing}>
             <Container>
@@ -81,7 +83,12 @@ export default function BriefPricing({ dict }: Props) {
                         align="center"
                     />
                 </div>
-                <div className="grid gap-8 pt-5 md:grid-cols-3">
+                {trustBadges && (
+                    <div className="mt-8">
+                        <TrustStrip items={trustBadges.items} />
+                    </div>
+                )}
+                <div className="grid gap-8 pt-10 md:grid-cols-3">
                     {dict.tiers.map((tier, i) => (
                         <PricingCard key={i} tier={tier} />
                     ))}
