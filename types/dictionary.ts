@@ -165,6 +165,14 @@ export type StatsDict = {
     items: StatItem[]
 }
 
+export type TrustBadgeItem = {
+    label: string
+}
+
+export type TrustBadgesDict = {
+    items: TrustBadgeItem[]
+}
+
 export type ProcessStep = {
     step: string
     title: string
@@ -206,4 +214,5 @@ export type Dictionary = {
     stats: StatsDict
     owner: OwnerDict
     process: ProcessDict
+    trustBadges: TrustBadgesDict
 }

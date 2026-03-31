@@ -18,6 +18,7 @@ import { painPointsDict } from "./pain-points"
 import { statsDict } from "./stats"
 import { ownerDict } from "./owner"
 import { processDict } from "./process"
+import { trustBadgesDict } from "./trust-badges"
 
 /** Composed dictionaries per locale. Single source for all translated copy. */
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -40,6 +41,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         stats: statsDict.en,
         owner: ownerDict.en,
         process: processDict.en,
+        trustBadges: trustBadgesDict.en,
     },
     es: {
         hero: heroDict.es,
@@ -60,5 +62,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
         stats: statsDict.es,
         owner: ownerDict.es,
         process: processDict.es,
+        trustBadges: trustBadgesDict.es,
     },
 }
