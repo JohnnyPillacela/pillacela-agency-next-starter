@@ -165,6 +165,16 @@ export type StatsDict = {
     items: StatItem[]
 }
 
+export type OwnerDict = {
+    name: string
+    title?: string
+    bio: string
+    imageUrl?: string
+    credentials?: string[]
+    cta?: string
+    ctaHref?: string
+}
+
 export type Dictionary = {
     hero: HeroDict
     about: AboutDict
@@ -182,4 +192,5 @@ export type Dictionary = {
     ctaBanner: CtaBannerDict
     painPoints: PainPointsDict
     stats: StatsDict
+    owner: OwnerDict
 }
