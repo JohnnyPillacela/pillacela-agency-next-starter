@@ -17,6 +17,7 @@ import { ctaBannerDict } from "./cta-banner"
 import { painPointsDict } from "./pain-points"
 import { statsDict } from "./stats"
 import { ownerDict } from "./owner"
+import { processDict } from "./process"
 
 /** Composed dictionaries per locale. Single source for all translated copy. */
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -38,6 +39,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         painPoints: painPointsDict.en,
         stats: statsDict.en,
         owner: ownerDict.en,
+        process: processDict.en,
     },
     es: {
         hero: heroDict.es,
@@ -57,5 +59,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
         painPoints: painPointsDict.es,
         stats: statsDict.es,
         owner: ownerDict.es,
+        process: processDict.es,
     },
 }

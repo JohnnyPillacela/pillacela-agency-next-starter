@@ -165,6 +165,18 @@ export type StatsDict = {
     items: StatItem[]
 }
 
+export type ProcessStep = {
+    step: string
+    title: string
+    description: string
+}
+
+export type ProcessDict = {
+    title: string
+    description?: string
+    items: ProcessStep[]
+}
+
 export type OwnerDict = {
     name: string
     title?: string
@@ -193,4 +205,5 @@ export type Dictionary = {
     painPoints: PainPointsDict
     stats: StatsDict
     owner: OwnerDict
+    process: ProcessDict
 }
