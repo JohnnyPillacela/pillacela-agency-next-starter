@@ -20,6 +20,8 @@ export const sectionBg = {
     process:      "default",
     work:         "muted",
     testimonials: "muted",
+    trustBadges:  "muted",
+    stats:        "muted",
     pricing:      "default",
     faq:          "muted",
     contact:      "default",
