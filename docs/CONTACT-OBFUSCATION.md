@@ -23,10 +23,10 @@ This template reduces how easily **simple bots and HTML scrapers** harvest a cli
 
 **Server vs client:** Parent sections (e.g. `BriefContact`) can stay Server Components; they render child components (`ContactInfo`, footer, FAQ CTA) that are Client Components and call the hook.
 
-### 2. JSON-LD for search engines (`app/layout.tsx`)
+### 2. Privacy-first JSON-LD (`app/layout.tsx`)
 
-- **LocalBusiness** structured data includes full phone and email from `shared` so **Google** (and similar) can still associate the business with contact details for local SEO.
-- **Why:** Search engines are the intended consumer of that block. Typical email/phone harvesters do not rely on JSON-LD the way they rely on visible links in HTML.
+- **LocalBusiness** structured data includes business identity fields (name, URL, image) but omits direct phone/email/address by default.
+- **Why:** JSON-LD is an easy crawl target. Omitting raw contact fields reduces passive harvesting surfaces.
 
 ### 3. Honeypot on the contact form
 
@@ -42,7 +42,7 @@ This template reduces how easily **simple bots and HTML scrapers** harvest a cli
 | Config | [`content/shared.ts`](../content/shared.ts) — update once per client |
 | Hook | [`hooks/useContact.ts`](../hooks/useContact.ts) — obfuscation logic in one place |
 | UI using the hook | [`components/sections/contact/contact-info.tsx`](../components/sections/contact/contact-info.tsx), [`components/layout/site-footer.tsx`](../components/layout/site-footer.tsx), [`components/briefs/FaqContactCta.tsx`](../components/briefs/FaqContactCta.tsx) |
-| SEO (full contact) | [`app/layout.tsx`](../app/layout.tsx) — JSON-LD block |
+| SEO (privacy-first JSON-LD) | [`app/layout.tsx`](../app/layout.tsx) — identity fields only by default |
 | Form + API | [`components/sections/contact/contact-form.tsx`](../components/sections/contact/contact-form.tsx), [`app/api/contact/route.ts`](../app/api/contact/route.ts), [`lib/validations/contact.ts`](../lib/validations/contact.ts) |
 
 ---
@@ -61,7 +61,7 @@ You can say something like:
 
 - We keep your contact info in **one config file** and show it clearly to real visitors.
 - We **avoid putting raw mailto/tel strings in the initial HTML** in the way simple scrapers expect, and we add a **hidden field** on the form to catch naive bots.
-- **Google** can still read your business details via **structured data** on the page so local search isn’t sacrificed.
+- We keep structured data for business identity while avoiding direct phone/email/address publication by default.
 - **No extra friction** for users: no CAPTCHA on the marketing form by default.
 
 ---
