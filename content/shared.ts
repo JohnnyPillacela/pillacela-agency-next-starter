@@ -18,4 +18,8 @@ export const shared = {
     images: {
         ogImage: "/website-screenshots/pillacela-hero.png",
     },
+    navCta: {
+        label: "Book a Call",
+        href:  "#contact",
+    },
 } as const

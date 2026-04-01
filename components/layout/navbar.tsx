@@ -46,6 +46,9 @@ export function Navbar() {
                                 {item.label}
                             </Link>
                         ))}
+                        <Button asChild size="sm">
+                            <Link href={shared.navCta.href}>{shared.navCta.label}</Link>
+                        </Button>
                         <LanguageSwitcher />
                     </div>
 
@@ -74,6 +77,13 @@ export function Navbar() {
                                             </Link>
                                         </SheetClose>
                                     ))}
+                                    <div className="mt-4 border-t pt-4">
+                                        <Button asChild className="w-full">
+                                            <Link href={shared.navCta.href} onClick={() => setOpen(false)}>
+                                                {shared.navCta.label}
+                                            </Link>
+                                        </Button>
+                                    </div>
                                 </nav>
                             </SheetContent>
                         </Sheet>
