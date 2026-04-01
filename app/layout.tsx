@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 import { SiteFooter } from "@/components/layout/site-footer"
+import { FloatingCta } from "@/components/layout/floating-cta"
 import { shared } from "@/content/shared"
 
 const fontSans = Inter({
@@ -74,6 +75,7 @@ export default function RootLayout({
                 <Navbar />
                 {children}
                 <SiteFooter />
+                <FloatingCta />
                 <Toaster />
                 <Analytics />
                 <SpeedInsights />
