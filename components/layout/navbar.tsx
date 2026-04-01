@@ -23,6 +23,9 @@ export function Navbar() {
     const locale = pathname?.startsWith("/es") ? "es" : "en"
     const navItems = getNavigationDict(locale)
     const [open, setOpen] = useState(false)
+    const navCtaHref = shared.navCta.href.startsWith("#")
+        ? `${locale === "es" ? "/es" : ""}${shared.navCta.href}`
+        : shared.navCta.href
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
@@ -47,7 +50,7 @@ export function Navbar() {
                             </Link>
                         ))}
                         <Button asChild size="sm">
-                            <Link href={shared.navCta.href}>{shared.navCta.label}</Link>
+                            <Link href={navCtaHref}>{shared.navCta.label}</Link>
                         </Button>
                         <LanguageSwitcher />
                     </div>
@@ -79,7 +82,7 @@ export function Navbar() {
                                     ))}
                                     <div className="mt-4 border-t pt-4">
                                         <Button asChild className="w-full">
-                                            <Link href={shared.navCta.href} onClick={() => setOpen(false)}>
+                                            <Link href={navCtaHref} onClick={() => setOpen(false)}>
                                                 {shared.navCta.label}
                                             </Link>
                                         </Button>
